@@ -16,3 +16,8 @@ cuando tenemos eso lo pasamos a un nuevo FILE * para devolver
 ver si hacemos strcpy para los nombres o asignamos directamente
 
 Formalidad en descripciones del .h
+
+Agregar un &dim en aquellas que funciones que devuelven un vector para que desde el main se pueda iterar
+
+Modificar la funcion que calcula arboles por habitante para que muestre en el orden pedido
+

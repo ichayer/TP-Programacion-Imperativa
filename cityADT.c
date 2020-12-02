@@ -141,7 +141,7 @@ char ** mostPopularTree(cityADT c){
     return new;
 }
 
-char ** showAllNeigh( cityADT c){
+char ** showAllNeigh( cityADT c ){
     char** new= malloc( c->count * sizeof(char*));
     TListNeigh aux=c->firstNeigh ;
     for (size_t i = 0; i < c->count; i++){
