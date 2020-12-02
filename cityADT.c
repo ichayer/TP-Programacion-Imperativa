@@ -1,23 +1,6 @@
 #include <stdlib.h>
 #include "cityADT.h"
 
-//ver si hay que hacer mas funciones
-
-//fprintf puede copiar doubles directamente
-//double es cantHab/cantTotal de arboles (redondeado a 2 decimales)
-//hacer funcion aux? 
-
-//orden de operaciones de CSV
-
-//agrego todos los barrios primero
-//agrego todos los arboles
-//si hay arboles que estan en barrios no listados, NO se agregan
-
-//despues, llamar a acada funcion segun query
-//cuando tenemos eso lo pasamos a un nuevo FILE * para devolver
-
-//ver si hacemos strcpy para los nombres o asignamos directamente
-
 typedef struct tree{
 	char *treeName;     //nombre cientifico arbol
 	size_t count ;      //cant de esa especie
