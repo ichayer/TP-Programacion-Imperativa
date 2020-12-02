@@ -42,7 +42,7 @@ static void freeTreeRec(TListTree list){
 static void freeRecNeigh(TListNeigh list){
     if(list==NULL)
         return;
-    
+    free(list->neighName);
     freeTreeRec(list->firstTree);
     freeRecNeigh(list->tail);
     free(list);
@@ -56,16 +56,24 @@ void freeCity(cityADT c){
 static TListNeigh addNeighRec(TListNeigh list, char *neigh, size_t cantHab ,char *flag){
     int c;
     if( list==NULL || (c=compare(list->neighName,neigh))>0 ){
-        if ( list!=NULL ){
-            printf("%d\n", c);
+        TListNeigh aux=calloc(1,sizeof(TNeigh));
+
+        if(aux==NULL){
+          *flag=ERROR;
+           return NULL;
         }
-        TListNeigh aux=malloc(sizeof(TNeigh));
-        aux->firstTree=NULL;
+
         aux->tail=list;
-        aux->trees=0;
         aux->people=cantHab;
-        aux->neighName=neigh; /* ojo */
-        (*flag)=1;
+        aux->neighName=malloc(strlen(neigh)+1);
+
+         if(aux->neighName==NULL){
+          *flag=ERROR;
+           return NULL;
+        }
+
+        strcpy(aux->neighName,neigh);
+        *flag=1;
         return aux;
     } 
 
@@ -81,9 +89,6 @@ int addNeigh(cityADT c, char * neigh, size_t cantHab){
     c->firstNeigh=addNeighRec(c->firstNeigh, neigh, cantHab, &flag);
     if(flag!=-1)
         c->count+=flag;
-
-    printf("%ld\n", c->count);
-
     return flag;
 }
 
@@ -107,7 +112,12 @@ static TListTree addTreeRec(TListTree list, char *tree , int *flag){
 
         aux->tail=list;
         aux->count=1;
-        aux->treeName=tree; 
+        aux->treeName=malloc(strlen(tree)+1); 
+        if(aux->treeName==NULL){
+          *flag=ERROR;
+           return NULL;
+        }
+        strcpy(aux->treeName, tree);
         return aux;
     } 
 
@@ -122,9 +132,10 @@ static TListTree addTreeRec(TListTree list, char *tree , int *flag){
 int addTree(cityADT c, char * neigh, char *tree){
     int flag=0;
     TListNeigh aux=searchNeigh(c->firstNeigh,neigh);
+
     if(aux==NULL)
         return flag;
-
+        
     aux->firstTree=addTreeRec(aux->firstTree, tree , &flag );
     aux->trees++;
     return flag;

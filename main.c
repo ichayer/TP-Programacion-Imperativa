@@ -22,17 +22,15 @@ int main(int argc, const char *argv[]){
 
     long int dim;
     char **neighs = showAllNeigh( myCity , &dim);
-    printf("%ld\n", dim);
-
     if ( dim!= -1){
         for (size_t i = 0; i < dim; i++){
             printf("%s\n", neighs[i]);
+            free(neighs[i]);
         }
         
     }
-
+    free(neighs);
     freeCity(myCity);
-
     return 0;
 }
 

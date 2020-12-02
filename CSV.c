@@ -5,18 +5,21 @@
 #define BLOCK 20
 
 static char ** readLine(char* delim, char * line){
-	char * token;
-	char ** new=NULL;
+	char * token;	char ** new=NULL; size_t i=0;
 	token= strtok( line , delim );
-	size_t i=0;
     while ( token!=NULL){
 		if ( i%BLOCK ==0  ){
 			new=realloc( new , ( i +BLOCK )* sizeof(char*));
+			if(new==NULL)
+				return NULL;
 		}
-		new[i++]=token;//o malloc?
+		new[i++]=token;
 		token=strtok(NULL, delim );
     }
-	new=realloc( new , ( i )* sizeof(char*));
+	new=realloc( new , i * sizeof(char*));
+
+	if(new==NULL)
+	  return NULL;		
 
 	return new;
 }
@@ -29,9 +32,7 @@ int readCity(FILE * file, cityADT c){
 		return -1;
 	}
 
-	char myLine[BUFFER_SIZE]; 
-	char ** aux;
-	char firstLine=1;
+	char myLine[BUFFER_SIZE]; char ** aux; char firstLine=1;
 
  	while(fgets(myLine, BUFFER_SIZE, myFile)!=NULL) {
 		aux=readLine( ";" , myLine );
