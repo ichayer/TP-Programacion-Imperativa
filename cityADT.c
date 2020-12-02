@@ -163,7 +163,14 @@ double* treesPerPerson ( cityADT c ){
         new[i]=numAux;
         aux=aux->tail;
     }
-    //ordenado segun orden alfabetico de barrios, falta ordenar por orden de mayor a menor
-    
+    //Hay que modificar la funcion porque los ordena alfabeticamente y aca tiene que quedar asi:
+    /* 9;0.24
+    ** 10;0.20
+    ** 11;0.20
+    ** 15;0.16
+    ** 12;0.11
+    ** Notar que el promedio mas grande es el primero y si hubiera empate en el truncado, se desempata
+    ** con el orden alfabetico.
+    */
     return new;
 }
