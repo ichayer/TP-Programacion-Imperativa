@@ -3,6 +3,12 @@
 
 typedef struct ciudadCDT * ciudadADT;
 
+//para comparar barrios, porque en bueADT son nums 
+//y en vanADT son nombres
+static int compare ( char* neigh1 , char* neigh2){
+    return strcmp(neigh1 , neigh2);
+}
+
 /* Crea una nueva ciudad */
 ciudadADT newCity(void);
 
@@ -28,6 +34,14 @@ int addTree(ciudadADT c, char * neigh, char *tree);
 ** el vector esta ordenado de manera alfabetica por barrio.
 */
 char ** mostPopularTree(ciudadADT c);
+
+
+/*
+**devuelve barrios en orden alfabético
+*/
+char ** showAllNeigh( ciudadADT c);
+
+double* treesPerPerson ( ciudadADT c );
 
 
 #endif
