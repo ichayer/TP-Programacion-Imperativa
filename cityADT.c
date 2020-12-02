@@ -196,13 +196,14 @@ double* treesPerPerson ( cityADT c , int *dim){
     TListNeigh aux=c->firstNeigh ;
     double * new= malloc ( c->count * sizeof ( double ));
     if ( new==NULL ){
+        *dim=ERROR;
         return NULL;
     }
 
     double numAux;
     for ( size_t i = 0; i < c->count; i++){
         //arboles por habitante redondeado a 2 decimales
-        numAux=((floor((aux->trees/aux->people)*100))/100);
+        numAux=(double)((floor((aux->trees/aux->people)*100))/100);
         new[i]=numAux;
         aux=aux->tail;
     }
