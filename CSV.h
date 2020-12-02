@@ -2,7 +2,9 @@
 
 #ifndef __CSV_H_
 #define __CSV_H_
+#include <stdio.h>
 
 //funciones
+int readCity(FILE * file, cityADT myCity);
 
 #endif 
