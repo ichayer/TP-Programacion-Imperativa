@@ -16,3 +16,5 @@ cuando tenemos eso lo pasamos a un nuevo FILE * para devolver
 ver si hacemos strcpy para los nombres o asignamos directamente
 
 Formalidad en descripciones del .h
+
+Esta es una prueba para vicky
