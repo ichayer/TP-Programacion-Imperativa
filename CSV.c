@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include "cityADT.h"
+
 
 int main(int argc, char const *argv[])   
 {
