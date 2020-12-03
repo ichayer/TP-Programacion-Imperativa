@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "cityADT.h"
 #define ERROR -1 
+#define EPSILON 0.001
 
 typedef struct Ttree{
 	char *treeName;     //nombre cientifico arbol
@@ -225,4 +226,25 @@ double* treesPerPerson ( cityADT c , size_t *dim){
     }
     *dim=c->count; 
     return new;
+}
+
+void sortq1(char ** neigh, double * q, size_t dim){
+    char * swap;
+    int i=0, j=0; 
+    double aux,diff;
+    int flag = 0; 
+    for(i = dim-1; i>0 && !flag; i--){
+     flag=1;
+     for(j=0;j<i;j++) { 
+           if( (diff=q[j]-q[j+1])<0 && fabs(diff)>EPSILON){
+                aux = q[j];
+                q[j]=q[j+1];
+                q[j+1] = aux;  
+                swap=neigh[j];
+                neigh[j]=neigh[j+1];
+                neigh[j+1]=swap;        
+                flag = 0;
+            }
+        }
+    }
 }

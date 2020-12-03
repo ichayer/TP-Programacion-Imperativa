@@ -56,4 +56,6 @@ char ** showAllNeigh( cityADT c , size_t *dim );
 */
 double* treesPerPerson ( cityADT c , size_t *dim);
 
+void sortq1(char ** neigh, double * q, size_t dim);
+
 #endif
