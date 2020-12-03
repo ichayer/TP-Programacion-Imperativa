@@ -56,7 +56,7 @@ int readTree( const char *file, cityADT c){
 		aux=readLine( ";" , myLine );
 
 		//cambiar los numeros por las constantes del makefile
-		if (addTree( c , aux[12] , aux[4])==-1){
+		if (addTree( c , aux[NEIGH-1] , aux[SPNAME-1])==-1){
 			return -2;
 		}
 	

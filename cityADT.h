@@ -1,7 +1,8 @@
 #ifndef __CITYADT_H
 #define __CITYADT_H
-#include <string.h>
+#include <strings.h>
 #include <stdlib.h>
+#include <string.h>
 
 // Valor default de ERROR sera -1 para todo el archivo
 
@@ -10,8 +11,10 @@ typedef struct cityCDT * cityADT;
 
 //para comparar barrios, porque en bueADT son nums 
 //y en vanADT son nombres
+
 static int compare ( char* neigh1 , char* neigh2){
-    return strcmp(neigh1 , neigh2);
+    //return strcasecmp(neigh1,neigh2); /* para VAN */
+    return atoi(neigh1)-atoi(neigh2); /* para BSAS */
 }
 
 /* Crea una nueva ciudad */

@@ -11,7 +11,6 @@ int main(int argc, const char *argv[]){
         return 1;
     }
     cityADT myCity = newCity();
-
     //despues cambiar y agregar fprintf
     int error=readCity( argv[1],myCity);
 

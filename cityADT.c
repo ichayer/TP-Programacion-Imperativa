@@ -99,7 +99,7 @@ static TListNeigh searchNeigh(TListNeigh list, char *neigh){
 
 static TListTree addTreeRec(TListTree list, char *tree , int *flag){
     int c;
-    if( list==NULL || (c=strcmp(list->treeName,tree))>0 ){
+    if( list==NULL || (c=strcasecmp(list->treeName,tree))>0 ){
         TListTree aux=malloc(sizeof(Ttree));
         if ( aux==NULL ){
             *flag=ERROR;
