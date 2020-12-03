@@ -39,10 +39,9 @@ int main(int argc, const char *argv[]){
 
     size_t q1;
     char **neighs1 = showAllNeigh( myCity , &q1);
-    //guardo copia del ordenado alfabeticametne para el query2
-    double *query1=treesPerPerson(myCity, &q1);
+    double *query1=treesPerPerson(myCity, neighs1, &q1);
+
     if (  neighs1!= NULL && query1!=NULL ){
-        sortq1(neighs1, query1, q1);
         fprintf(QUERY1,"BARRIO;PROMEDIO_ARBOLES_HABITANTES\n");
         for (size_t i = 0; i < q1; i++){
             fprintf(QUERY1,"%s;", neighs1[i]);

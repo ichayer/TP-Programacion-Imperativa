@@ -15,10 +15,10 @@ static char ** readLine(char* delim, char * line){
 				return NULL;
 		}
 		new[i++]=token;
+		
 		token=strtok(NULL, delim );
     }
 	new=realloc( new , i * sizeof(char*));		
-
 	return new;
 }
 
@@ -31,7 +31,6 @@ int readCity( const char* file, cityADT c){
 	char myLine[BUFFER_SIZE]; char ** aux; 
 	fgets(myLine, BUFFER_SIZE, myFile);
 	//como primer linea son heads, la primera vex que entro no llamo a addNeigh
-
  	while(fgets(myLine, BUFFER_SIZE, myFile)!=NULL) {
 		aux=readLine( ";" , myLine );
 		if ( aux[1][0]!='\0'){
@@ -52,14 +51,11 @@ int readTree( const char *file, cityADT c){
 	}
 	char myLine[BUFFER_SIZE]; char ** aux; 
 	fgets(myLine, BUFFER_SIZE, myFile);
- 	while(fgets(myLine, BUFFER_SIZE, myFile)!=NULL) {
+ 	while(fgets(myLine, BUFFER_SIZE, myFile)!=NULL ) {//solo probar
 		aux=readLine( ";" , myLine );
-
-		//cambiar los numeros por las constantes del makefile
 		if (addTree( c , aux[NEIGH-1] , aux[SPNAME-1])==-1){
 			return -2;
 		}
-	
 		free(aux);
  	}
  	fclose(myFile);

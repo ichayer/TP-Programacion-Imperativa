@@ -54,8 +54,6 @@ char ** showAllNeigh( cityADT c , size_t *dim );
 /*devuelve cant de arboles por persona en cada barrio (alfabeticamente)
 ** retorna NULL y dim en -1 en caso de ERROR, dim en 0 si esta vacio
 */
-double* treesPerPerson ( cityADT c , size_t *dim);
-
-void sortq1(char ** neigh, double * q, size_t dim);
+double* treesPerPerson ( cityADT c, char **neighs , size_t *dim);
 
 #endif
