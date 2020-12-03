@@ -16,10 +16,7 @@ static char ** readLine(char* delim, char * line){
 		new[i++]=token;
 		token=strtok(NULL, delim );
     }
-	new=realloc( new , i * sizeof(char*));
-
-	if(new==NULL)
-	  return NULL;		
+	new=realloc( new , i * sizeof(char*));		
 
 	return new;
 }
@@ -32,21 +29,19 @@ int readCity(FILE * file, cityADT c){
 		return -1;
 	}
 
-	char myLine[BUFFER_SIZE]; char ** aux; char firstLine=1;
+	char myLine[BUFFER_SIZE]; char ** aux; 
+	fgets(myLine, BUFFER_SIZE, myFile);
+	//como primer linea son heads, la primera vex que entro no llamo a addNeigh
+	//apago el flag de que era la primera para poder empezar a agregaar
 
  	while(fgets(myLine, BUFFER_SIZE, myFile)!=NULL) {
 		aux=readLine( ";" , myLine );
-		if ( !firstLine ){
-			if ( aux[1][0]!='\0'){
-				if (addNeigh( c , aux[0], atoi(aux[1]) )==-1){
-					return -1;
-				}
+		if ( aux[1][0]!='\0'){
+			if (addNeigh( c , aux[0], atoi(aux[1]) )==-1){
+				return -1;
 			}
-		}else{
-			//como primer linea son heads, la primera vex que entro no llamo a addNeigh
-			//apago el flag de que era la primera para poder empezar a agregaar
-			firstLine=0;
 		}
+	
 		free(aux);
  	}
  	fclose(myFile);

@@ -30,7 +30,7 @@ cityADT newCity(void){
   return calloc(1,sizeof(cityCDT));
 }
 
-/* FIJARSE SI EN LOS CHAR * HACEMOS COPIA O NO :) */
+/*Hacer el free de cada nombre */
 static void freeTreeRec(TListTree list){
     if(list==NULL)
         return;
@@ -38,7 +38,6 @@ static void freeTreeRec(TListTree list){
     freeTreeRec(list->tail);
     free(list);
 }
-
 static void freeRecNeigh(TListNeigh list){
     if(list==NULL)
         return;
@@ -47,7 +46,6 @@ static void freeRecNeigh(TListNeigh list){
     freeRecNeigh(list->tail);
     free(list);
 }
-
 void freeCity(cityADT c){
     freeRecNeigh(c->firstNeigh);
     free(c);
