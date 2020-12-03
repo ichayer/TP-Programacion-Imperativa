@@ -5,26 +5,26 @@
 #define EPSILON 0.001
 
 typedef struct Ttree{
-	char *treeName;     //nombre cientifico arbol
-	size_t count ;      //cant de esa especie
-	struct Ttree * tail ;//puntero a siguiente
+	char *treeName;         //nombre cientifico del arbol
+	size_t count ;          //cantidad de esa especie
+	struct Ttree * tail;    //puntero a siguiente
 }Ttree;
 
 typedef Ttree * TListTree;
 
 typedef struct TNeigh{
-	TListTree firstTree;//puntero a primero de la lista de arboles
-	size_t people;      //habitantes del barrio
-	size_t trees;       //cant total de arboles
-    char *neighName;    //nombre de barrio
-    struct TNeigh *tail;	//puntero a siguiente	
+	TListTree firstTree;    //puntero al primero de la lista de arboles
+	size_t people;          //habitantes del barrio
+	size_t trees;           //cantidad total de arboles
+    char *neighName;        //nombre de barrio
+    struct TNeigh *tail;   	//puntero al siguiente	
 }TNeigh; 
 
 typedef TNeigh * TListNeigh;
 
 typedef struct cityCDT{
-	TListNeigh firstNeigh;//puntero a primer barrio
-	size_t count;         //cant de barrios
+	TListNeigh firstNeigh;  //puntero al primer barrio
+	size_t count;           //cantidad de barrios
 }cityCDT;
 
 cityADT newCity(void){

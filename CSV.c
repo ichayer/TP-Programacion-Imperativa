@@ -3,8 +3,8 @@
 #include "CSV.h"
 #define BUFFER_SIZE 2048
 #define BLOCK 20
+#define ERROR -1
 
-//por ahora seguimos así, despues si hace falta modificamos
 static char ** readLine(char* delim, char * line){
 	char * token;	char ** new=NULL; size_t i=0;
 	token= strtok( line , delim );
@@ -22,10 +22,10 @@ static char ** readLine(char* delim, char * line){
 	return new;
 }
 
-int readCity( const char* file, cityADT c){
+int read( const char* file, cityADT c, int dataType){
  	FILE* myFile= fopen( file, "r");
 	if(myFile==NULL){
-		return -1;
+		return ERROR;
 	}
 
 	char myLine[BUFFER_SIZE]; char ** aux; 
@@ -34,8 +34,15 @@ int readCity( const char* file, cityADT c){
  	while(fgets(myLine, BUFFER_SIZE, myFile)!=NULL) {
 		aux=readLine( ";" , myLine );
 		if ( aux[1][0]!='\0'){
-			if (addNeigh( c , aux[0], atoi(aux[1]) )==-1){
-				return -2;
+			if(dataType){
+				if (addNeigh( c , aux[0], atoi(aux[1]) )==-1){
+					free(aux);
+					return ERROR;
+				}
+			}else {
+				if (addTree( c , aux[NEIGH-1] , aux[SPNAME-1])==-1){
+					free(aux);
+					return ERROR;
 			}
 		}
 		free(aux);
@@ -44,20 +51,4 @@ int readCity( const char* file, cityADT c){
 	return 1;
 }
 
-int readTree( const char *file, cityADT c){
-	FILE* myFile= fopen( file, "r");
-	if(myFile==NULL){
-		return -1;
-	}
-	char myLine[BUFFER_SIZE]; char ** aux; 
-	fgets(myLine, BUFFER_SIZE, myFile);
- 	while(fgets(myLine, BUFFER_SIZE, myFile)!=NULL ) {//solo probar
-		aux=readLine( ";" , myLine );
-		if (addTree( c , aux[NEIGH-1] , aux[SPNAME-1])==-1){
-			return -2;
-		}
-		free(aux);
- 	}
- 	fclose(myFile);
-	return 1;
-}
+
