@@ -43,11 +43,12 @@ int read( const char* file, cityADT c, int dataType){
 				if (addTree( c , aux[NEIGH-1] , aux[SPNAME-1])==-1){
 					free(aux);
 					return ERROR;
+				}
 			}
-		}
-		free(aux);
- 	}
- 	fclose(myFile);
+			free(aux);
+ 		}
+	}
+	fclose(myFile);
 	return 1;
 }
 

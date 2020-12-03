@@ -9,12 +9,11 @@
 int main(int argc, const char *argv[]){
 
     if(argc!=3){
-        fprintf(stderr,"Numero de argumentos invalidos\n"); /* esto nose si esta bien, hay que separar front de back */
+        fprintf(stderr,"Numero de argumentos invalidos\n"); 
         return 1;
     }
     cityADT myCity = newCity();
     int error=read( argv[1],myCity, CITY);
-
    
     if ( error==-1 ){
         fprintf(stderr,"Error en el archivo referente a los barrios\n");
@@ -30,9 +29,8 @@ int main(int argc, const char *argv[]){
     FILE * QUERY1= fopen("query1.csv","w"); //creacion del archivo con el total de arboles por habitantes por barrio
     FILE * QUERY2= fopen("query2.csv","w"); //creacion del archivo con la especie de árbol más popular por barrio
 
-    size_t q1;
-    char **neighs = showAllNeigh( myCity , &q1); //Creamos
-    size_t q2;
+    size_t q1,q2;
+    char **neighs = showAllNeigh( myCity , &q1); 
     char **query2 = mostPopularTree( myCity , &q2);
 
     if (  neighs!= NULL && query2!=NULL ){
@@ -71,4 +69,3 @@ int main(int argc, const char *argv[]){
     freeCity(myCity);
     return err;
 }
-
