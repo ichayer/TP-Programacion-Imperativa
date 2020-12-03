@@ -4,6 +4,7 @@
 #define BUFFER_SIZE 1024
 #define BLOCK 20
 
+//por ahora seguimos así, despues si hace falta modificamos
 static char ** readLine(char* delim, char * line){
 	char * token;	char ** new=NULL; size_t i=0;
 	token= strtok( line , delim );
@@ -21,25 +22,42 @@ static char ** readLine(char* delim, char * line){
 	return new;
 }
 
-int readCity(FILE * file, cityADT c){
- 	FILE* myFile= fopen( (char*) file, "r");
-
+int readCity( const char* file, cityADT c){
+ 	FILE* myFile= fopen( file, "r");
 	if(myFile==NULL){
-    	printf("No abrio correctamente");
 		return -1;
 	}
 
 	char myLine[BUFFER_SIZE]; char ** aux; 
 	fgets(myLine, BUFFER_SIZE, myFile);
 	//como primer linea son heads, la primera vex que entro no llamo a addNeigh
-	//apago el flag de que era la primera para poder empezar a agregaar
 
  	while(fgets(myLine, BUFFER_SIZE, myFile)!=NULL) {
 		aux=readLine( ";" , myLine );
 		if ( aux[1][0]!='\0'){
 			if (addNeigh( c , aux[0], atoi(aux[1]) )==-1){
-				return -1;
+				return -2;
 			}
+		}
+		free(aux);
+ 	}
+ 	fclose(myFile);
+	return 1;
+}
+
+int readTree( const char *file, cityADT c){
+	FILE* myFile= fopen( file, "r");
+	if(myFile==NULL){
+		return -1;
+	}
+	char myLine[BUFFER_SIZE]; char ** aux; 
+	fgets(myLine, BUFFER_SIZE, myFile);
+ 	while(fgets(myLine, BUFFER_SIZE, myFile)!=NULL) {
+		aux=readLine( ";" , myLine );
+
+		//cambiar los numeros por las constantes del makefile
+		if (addTree( c , aux[12] , aux[4])==-1){
+			return -2;
 		}
 	
 		free(aux);
@@ -47,4 +65,3 @@ int readCity(FILE * file, cityADT c){
  	fclose(myFile);
 	return 1;
 }
-

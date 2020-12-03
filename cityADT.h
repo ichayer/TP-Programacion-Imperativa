@@ -37,20 +37,20 @@ int addTree(cityADT c, char * neigh, char *tree);
 ** Devuelve un vector de chars con los nombres cientificos de los arboles mas populares de cada barrio
 ** dim parametro de entrada y salida con la cantidad de barrios
 ** el vector esta ordenado de manera alfabetica por barrio.
-** retorna NULL y dim en -1 en caso de ERROR, dim en 0 si esta vacio
+** retorna NULL en caso de ERROR, dim en 0 si esta vacio
 */
-char ** mostPopularTree(cityADT c , long int * dim);
+char ** mostPopularTree(cityADT c , size_t * dim);
 
 /*
 **devuelve barrios en orden alfabético
 ** dim parametro de entrada y salida con la cantidad de barrios
-** retorna NULL y dim en -1 en caso de ERROR, dim en 0 si esta vacio
+** retorna NULL en caso de ERROR, dim en 0 si esta vacio
 */
-char ** showAllNeigh( cityADT c , long int *dim );
+char ** showAllNeigh( cityADT c , size_t *dim );
 
 /*devuelve cant de arboles por persona en cada barrio (alfabeticamente)
 ** retorna NULL y dim en -1 en caso de ERROR, dim en 0 si esta vacio
 */
-double* treesPerPerson ( cityADT c , long int *dim);
+double* treesPerPerson ( cityADT c , size_t *dim);
 
 #endif

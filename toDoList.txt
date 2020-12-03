@@ -1,7 +1,3 @@
-fprintf puede copiar doubles directamente
-double es cantHab/cantTotal de arboles (redondeado a 2 decimales)
-hacer funcion aux? 
-
 orden de operaciones de CSV
 {
 si hay arboles que estan en barrios no listados, NO se agregan
@@ -10,11 +6,14 @@ despues, llamar a acada funcion segun query
 cuando tenemos eso lo pasamos a un nuevo FILE * para devolver
 }
 
-ver si hacemos strcpy para los nombres o asignamos directamente
-
 Formalidad en descripciones del .h
 
 Modificar la funcion que calcula arboles por habitante para que muestre en el orden pedido
 Se resuelve despues del llamado, no en el adt
 
+Chequear los return en las funciones que usan heap 
 
+Probar modificar el makefile para poder usar los campos necesarios
+
+Probar unificar los dos read en uno solo donde solo le paso parametro de que funcion usar
+Y los campos que deben tomarse en cuenta 

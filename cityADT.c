@@ -3,13 +3,13 @@
 #include "cityADT.h"
 #define ERROR -1 
 
-typedef struct tree{
+typedef struct Ttree{
 	char *treeName;     //nombre cientifico arbol
 	size_t count ;      //cant de esa especie
-	struct tree * tail ;//puntero a siguiente
-}tree;
+	struct Ttree * tail ;//puntero a siguiente
+}Ttree;
 
-typedef tree * TListTree;
+typedef Ttree * TListTree;
 
 typedef struct TNeigh{
 	TListTree firstTree;//puntero a primero de la lista de arboles
@@ -35,6 +35,7 @@ static void freeTreeRec(TListTree list){
     if(list==NULL)
         return;
 
+    free(list->treeName);
     freeTreeRec(list->tail);
     free(list);
 }
@@ -55,17 +56,14 @@ static TListNeigh addNeighRec(TListNeigh list, char *neigh, size_t cantHab ,char
     int c;
     if( list==NULL || (c=compare(list->neighName,neigh))>0 ){
         TListNeigh aux=calloc(1,sizeof(TNeigh));
-
         if(aux==NULL){
           *flag=ERROR;
            return NULL;
         }
-
         aux->tail=list;
         aux->people=cantHab;
         aux->neighName=malloc(strlen(neigh)+1);
-
-         if(aux->neighName==NULL){
+        if(aux->neighName==NULL){
           *flag=ERROR;
            return NULL;
         }
@@ -102,12 +100,11 @@ static TListNeigh searchNeigh(TListNeigh list, char *neigh){
 static TListTree addTreeRec(TListTree list, char *tree , int *flag){
     int c;
     if( list==NULL || (c=strcmp(list->treeName,tree))>0 ){
-        TListTree aux=malloc(sizeof(tree));
+        TListTree aux=malloc(sizeof(Ttree));
         if ( aux==NULL ){
             *flag=ERROR;
             return NULL;
         }
-
         aux->tail=list;
         aux->count=1;
         aux->treeName=malloc(strlen(tree)+1); 
@@ -139,7 +136,6 @@ int addTree(cityADT c, char * neigh, char *tree){
     return flag;
 }
 
-
 static char * findMostPopular ( TListTree list ){
     TListTree aux=list;
     size_t max=0;
@@ -157,29 +153,31 @@ static char * findMostPopular ( TListTree list ){
     }
     return new;
 }
-char ** mostPopularTree(cityADT c , long int *dim ){
+char ** mostPopularTree(cityADT c ,size_t *dim ){
     if ( c->count ==0 ){
         *dim=0;
         return NULL;
     }
     TListNeigh aux=c->firstNeigh;
-    char **new=malloc(sizeof(char*)*c->count);
+    char **new=malloc(sizeof(char*)* c->count);
+
     if ( new== NULL ){
-        *dim=ERROR; 
         return NULL;
     }
+
     for(int i=0; i<c->count ; i++){
         new[i]=findMostPopular( aux->firstTree );
         if ( new[i]== NULL ){
-            *dim=ERROR; 
             return NULL;
         }
         aux=aux->tail;
     }
+
+    *dim=c->count;
     return new;
 }
 
-char ** showAllNeigh( cityADT c , long int *dim ){
+char ** showAllNeigh( cityADT c , size_t *dim ){
     if ( c->count ==0 ){
         *dim=0;
         return NULL;
@@ -187,14 +185,12 @@ char ** showAllNeigh( cityADT c , long int *dim ){
 
     char** new= malloc( c->count * sizeof(char*));
     if ( new== NULL ){
-        *dim=ERROR; 
         return NULL;
     }
     TListNeigh aux=c->firstNeigh ;
     for (size_t i = 0; i < c->count; i++){
         new[i]=malloc( strlen(aux->neighName )+1 );
         if ( new[i]==NULL ){
-            *dim=ERROR;
             return NULL;
         }
         strcpy(new[i], aux->neighName);
@@ -204,7 +200,7 @@ char ** showAllNeigh( cityADT c , long int *dim ){
     return new;
 }
 
-double* treesPerPerson ( cityADT c , long int *dim){
+double* treesPerPerson ( cityADT c , size_t *dim){
     if ( c->count ==0 ){
         *dim=0;
         return NULL;
@@ -212,14 +208,13 @@ double* treesPerPerson ( cityADT c , long int *dim){
     TListNeigh aux=c->firstNeigh ;
     double * new= malloc ( c->count * sizeof ( double ));
     if ( new==NULL ){
-        *dim=ERROR;
         return NULL;
     }
 
     double numAux;
     for ( size_t i = 0; i < c->count; i++){
         //arboles por habitante redondeado a 2 decimales
-        numAux=(double)((floor((aux->trees/aux->people)*100))/100);
+        numAux=((floor(((double)aux->trees/aux->people)*100))/100);
         new[i]=numAux;
         aux=aux->tail;
     }
