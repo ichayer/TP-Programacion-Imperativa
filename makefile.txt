@@ -1,0 +1,16 @@
+COMPILER=gcc
+OUTPUT_FILE_BUE= arbolesADTBUE
+OUTPUT_FILE_VAN= arbolesADTVAN
+CFLAGS= -Wall -pedantic -std=c99 -fsanitize=address -g
+FILES= cityADT.c CSV.c main.c
+
+all: arbolesADTBUE arbolesADTVAN
+
+arbolesADTBUE:
+	$(COMPILER) $(CFLAGS) -o $(OUTPUT_FILE_BUE) $(FILES) -D SPNAME=7 -D NEIGH=2
+
+arbolesADTVAN:
+	$(COMPILER) $(CFLAGS) -o $(OUTPUT_FILE_VAN) $(FILES) -D SPNAME=6 -D NEIGH=12
+
+clean:
+	rm -r $(OUTPUT_FILE_BUE) $(OUTPUT_FILE_VAN) *.o
