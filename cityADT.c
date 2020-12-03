@@ -55,7 +55,7 @@ void freeCity(cityADT c){
 
 static TListNeigh addNeighRec(TListNeigh list, char *neigh, size_t cantHab ,char *flag){
     int c;
-    if( list==NULL || (c=compare(list->neighName,neigh))>0 ){
+    if( list==NULL || (c=strcasecmp(list->neighName,neigh))>0 ){
         TListNeigh aux=calloc(1,sizeof(TNeigh));
         if(aux==NULL){
           *flag=ERROR;
@@ -91,7 +91,7 @@ int addNeigh(cityADT c, char * neigh, size_t cantHab){
 
 static TListNeigh searchNeigh(TListNeigh list, char *neigh){
     int c;
-    if(list==NULL || (c=compare(list->neighName,neigh))>0 )
+    if(list==NULL || (c=strcasecmp(list->neighName,neigh))>0 )
         return NULL;
     if(c==0)
         return list;

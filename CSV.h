@@ -12,7 +12,6 @@
 */
 int readCity( const char* file, cityADT c);
 
-
 /*
 ** Funcion que lee lineas y se encarga de agregar
 ** al ADT los campos necesarios asociados a cada arbol

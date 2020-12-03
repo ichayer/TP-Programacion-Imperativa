@@ -57,10 +57,6 @@ int main(int argc, const char *argv[]){
     free(query1);
     free(neighs1);
 
-    putchar('\n');
-    putchar('\n');
-    putchar('\n');
-
     size_t q2;
     char **query2 = mostPopularTree( myCity , &q2);
     char **neighs2 =showAllNeigh(myCity , &q2 );
