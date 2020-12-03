@@ -26,6 +26,8 @@ int main(int argc, const char *argv[]){
         return 1;
     }
     char err = 0;
+    
+    //modificar
     FILE * QUERY1= fopen("query1.csv","w"); //creacion del archivo con el total de arboles por habitantes por barrio
     FILE * QUERY2= fopen("query2.csv","w"); //creacion del archivo con la especie de árbol más popular por barrio
 
@@ -33,6 +35,7 @@ int main(int argc, const char *argv[]){
     char **neighs = showAllNeigh( myCity , &q1); 
     char **query2 = mostPopularTree( myCity , &q2);
 
+    //mover a genQ2
     if (  neighs!= NULL && query2!=NULL ){
         fprintf(QUERY2,"BARRIO;NOMBRE_CIENTIFICO\n"); //Head del archivo 2
         for (size_t i = 0; i < q2 ; i++){
@@ -48,6 +51,7 @@ int main(int argc, const char *argv[]){
     fclose(QUERY2); //Cerramos el archivo y luego liberamos los recursos utilizados
     free(query2);
 
+    //mover a genQ2
     double *query1=treesPerPerson(myCity, neighs, &q1);
 
     if (  neighs!= NULL && query1!=NULL ){

@@ -4,6 +4,7 @@
 #define BUFFER_SIZE 2048
 #define BLOCK 20
 #define ERROR -1
+#define DELIM ";"
 
 static char ** readLine(char* delim, char * line){
 	char * token;	char ** new=NULL; size_t i=0;
@@ -32,15 +33,15 @@ int read( const char* file, cityADT c, int dataType){
 	fgets(myLine, BUFFER_SIZE, myFile);
 	//como primer linea son heads, la primera vex que entro no llamo a addNeigh
  	while(fgets(myLine, BUFFER_SIZE, myFile)!=NULL) {
-		aux=readLine( ";" , myLine );
+		aux=readLine( DELIM , myLine );
 		if ( aux[1][0]!='\0'){
 			if(dataType){
-				if (addNeigh( c , aux[0], atoi(aux[1]) )==-1){
+				if (addNeigh( c , aux[NEIGH_NAME-1], atoi(aux[NEIGH_POP-1]) )==-1){
 					free(aux);
 					return ERROR;
 				}
 			}else {
-				if (addTree( c , aux[NEIGH-1] , aux[SPNAME-1])==-1){
+				if (addTree( c , aux[NEIGH_TREE-1] , aux[SPNAME-1])==-1){
 					free(aux);
 					return ERROR;
 				}
