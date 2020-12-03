@@ -32,25 +32,28 @@ int read( const char* file, cityADT c, int dataType){
 	char myLine[BUFFER_SIZE]; char ** aux; 
 	fgets(myLine, BUFFER_SIZE, myFile);
 	//como primer linea son heads, la primera vex que entro no llamo a addNeigh
- 	while(fgets(myLine, BUFFER_SIZE, myFile)!=NULL) {
+ 	while(fgets(myLine, BUFFER_SIZE, myFile)!=NULL){
 		aux=readLine( DELIM , myLine );
-		if ( aux[1][0]!='\0'){
-			if(dataType){
+		if(dataType){
+			if ( aux[1][0]!='\0'){
 				if (addNeigh( c , aux[NEIGH_NAME-1], atoi(aux[NEIGH_POP-1]) )==-1){
 					free(aux);
 					return ERROR;
 				}
-			}else {
-				if (addTree( c , aux[NEIGH_TREE-1] , aux[SPNAME-1])==-1){
-					free(aux);
-					return ERROR;
-				}
 			}
-			free(aux);
+		}
+		else{
+			if (addTree( c , aux[NEIGH_TREE-1] , aux[SPNAME-1])==-1){
+				free(aux);
+				return ERROR;
+			}
  		}
-	}
-	fclose(myFile);
+		 free(aux);
+	 }
+	 fclose(myFile);
 	return 1;
 }
+	
+	
 
 
