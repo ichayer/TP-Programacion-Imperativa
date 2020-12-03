@@ -1,19 +1,12 @@
-orden de operaciones de CSV
-{
-si hay arboles que estan en barrios no listados, NO se agregan
+Formalidad en descripciones del .h.
 
-despues, llamar a acada funcion segun query
-cuando tenemos eso lo pasamos a un nuevo FILE * para devolver
-}
+Verficar claridad en todas las funciones y en el main.
 
-Formalidad en descripciones del .h
+Chequear los return de posibles errores en el realloc o malloc en las funciones que usan heap.
 
-Modificar la funcion que calcula arboles por habitante para que muestre en el orden pedido
-Se resuelve despues del llamado, no en el adt
+Testear el codigo haciendolo fallar para probar todos los posibles errores.
 
-Chequear los return en las funciones que usan heap 
+Corroborar el makefile ¿Hacemos Debug? ¿le ponemos que borre los directorios .dSYM al hacer clear?
 
-Probar modificar el makefile para poder usar los campos necesarios
+Escribir el readme.md para entregar el tp. 
 
-Probar unificar los dos read en uno solo donde solo le paso parametro de que funcion usar
-Y los campos que deben tomarse en cuenta 
