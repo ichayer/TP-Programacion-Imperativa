@@ -4,7 +4,9 @@ En el siguiente archivo, se detallará cómo generar los ejecutables y de cómo 
 
 # MAKEFILE
 Para el MAKEFILE deben indicarse las columnas de interés. 
+
       -D SPNAME=X -D NEIGH=Y
+      
 Donde SPNAME es la columna de la especie del árbol y NEIGH la columan de los barrios en los archivos csv. 
 
       make all 
@@ -29,6 +31,8 @@ Analogamente para los archivos CSV de :flag_can:
 
 # Resultado final
 Se crearan dos archivos en el directorio donde haya sido ejecutado el programa que corresponden a los querys de la primer fecha de entrega:
+
       query1.csv
       query2.csv
+      
 Nota: Por cada ejecución del programa ambos archivos .csv se sobreescribirán.
