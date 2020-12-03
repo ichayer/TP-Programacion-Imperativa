@@ -1,7 +1,7 @@
 COMPILER=gcc
 OUTPUT_FILE_BUE= arbolesADTBUE
 OUTPUT_FILE_VAN= arbolesADTVAN
-CFLAGS= -Wall -pedantic -std=c99 -fsanitize=address -g
+CFLAGS= -Wall -pedantic -std=c99 -fsanitize=address -g -lm
 FILES= cityADT.c CSV.c main.c
 
 all: arbolesADTBUE arbolesADTVAN
@@ -13,4 +13,4 @@ arbolesADTVAN:
 	$(COMPILER) $(CFLAGS) -o $(OUTPUT_FILE_VAN) $(FILES) -D SPNAME=5 -D NEIGH=13
 
 clean:
-	rm -r $(OUTPUT_FILE_BUE) $(OUTPUT_FILE_VAN) *.o
+	rm -fr $(OUTPUT_FILE_BUE) $(OUTPUT_FILE_VAN) *.o

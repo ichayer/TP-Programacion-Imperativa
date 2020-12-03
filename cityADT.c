@@ -132,7 +132,9 @@ int addTree(cityADT c, char * neigh, char *tree){
         return flag;
         
     aux->firstTree=addTreeRec(aux->firstTree, tree , &flag );
-    aux->trees++;
+    if (flag!=-1){
+        aux->trees++;   
+    }
     return flag;
 }
 
@@ -162,6 +164,7 @@ char ** mostPopularTree(cityADT c ,size_t *dim ){
     char **new=malloc(sizeof(char*)* c->count);
 
     if ( new== NULL ){
+        *dim=0;
         return NULL;
     }
 
@@ -185,6 +188,7 @@ char ** showAllNeigh( cityADT c , size_t *dim ){
 
     char** new= malloc( c->count * sizeof(char*));
     if ( new== NULL ){
+        *dim = 0;
         return NULL;
     }
     TListNeigh aux=c->firstNeigh ;
@@ -208,6 +212,7 @@ double* treesPerPerson ( cityADT c , size_t *dim){
     TListNeigh aux=c->firstNeigh ;
     double * new= malloc ( c->count * sizeof ( double ));
     if ( new==NULL ){
+        *dim=0;
         return NULL;
     }
 

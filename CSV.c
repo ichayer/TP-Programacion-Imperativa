@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "cityADT.h"
 #include "CSV.h"
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 2048
 #define BLOCK 20
 
 //por ahora seguimos así, despues si hace falta modificamos

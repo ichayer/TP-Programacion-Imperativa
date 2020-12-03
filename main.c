@@ -12,7 +12,7 @@ int main(int argc, const char *argv[]){
     }
     cityADT myCity = newCity();
 
-    //despues cambiar
+    //despues cambiar y agregar fprintf
     int error=readCity( argv[1],myCity);
 
    
@@ -42,7 +42,7 @@ int main(int argc, const char *argv[]){
 
     if (  neighs1!= NULL && query1!=NULL ){
         for (size_t i = 0; i < q1; i++){
-            printf("%s: ", neighs1[i]);
+            printf("%s; ", neighs1[i]);
             printf("%g\n", query1[i]);
             free(neighs1[i]);
         }
@@ -64,7 +64,7 @@ int main(int argc, const char *argv[]){
 
     if (  neighs2!= NULL && query2!=NULL ){
         for (size_t i = 0; i < q2 ; i++){
-            printf("%s: ", neighs2[i]);
+            printf("%s; ", neighs2[i]);
             printf("%s\n", query2[i]);
             free(neighs2[i]);
             free(query2[i]);
