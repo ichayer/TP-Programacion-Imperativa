@@ -1,4 +1,3 @@
-Formalidad en descripciones del .h.
 
 Verficar claridad en todas las funciones y en el main.
 
