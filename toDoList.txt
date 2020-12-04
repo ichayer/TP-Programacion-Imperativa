@@ -1,11 +1,13 @@
 
 Verficar claridad en todas las funciones y en el main.
 
-Chequear los return de posibles errores en el realloc o malloc en las funciones que usan heap.
-
 Testear el codigo haciendolo fallar para probar todos los posibles errores.
 
-Corroborar el makefile ¿Hacemos Debug? ¿le ponemos que borre los directorios .dSYM al hacer clear?
+Corroborar el makefile ¿Hacemos Debug?
 
-Escribir el readme.md para entregar el tp. 
+Validar TODO
+
+Chequear que el back no llame al front
+
+Mejorar el tiempo, fijandonos en sortq1 y viendo si a podemos llenar el archivo mientras ordenamos
 
