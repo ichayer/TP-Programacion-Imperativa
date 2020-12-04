@@ -55,7 +55,7 @@ void freeCity(cityADT c){
 static TListNeigh addNeighRec(TListNeigh list, char *neigh, size_t cantHab ,char *flag){
     int c;
     if( list==NULL || (c=strcasecmp(list->neighName,neigh))>0 ){
-        TListNeigh aux=calloc(1,sizeof(TNeigh));
+        TListNeigh aux=malloc(sizeof(TNeigh));
         if(aux==NULL){
           *flag=ERROR;
            return NULL;
@@ -63,6 +63,9 @@ static TListNeigh addNeighRec(TListNeigh list, char *neigh, size_t cantHab ,char
         aux->tail=list;
         aux->people=cantHab;
         aux->neighName=malloc(strlen(neigh)+1);
+        aux->firstTree=NULL;
+        aux->trees=0;
+        
         if(aux->neighName==NULL){
           *flag=ERROR;
            return NULL;
