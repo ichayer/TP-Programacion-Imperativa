@@ -88,13 +88,27 @@ int addNeigh(cityADT c, char * neigh, size_t cantHab){
     return flag;
 }
 
-static TListNeigh searchNeigh(TListNeigh list, char *neigh){
+//decidir si es mejor iterativo o recursivo
+
+/*static TListNeigh searchNeigh(TListNeigh list, char *neigh){
     int c;
     if(list==NULL || (c=strcasecmp(list->neighName,neigh))>0 )
         return NULL;
     if(c==0)
         return list;
     return searchNeigh(list->tail, neigh);
+}*/
+
+static TListNeigh searchNeigh ( TListNeigh list , char *neigh ){
+    int c;
+    TListNeigh aux=list;
+    while( aux!=NULL && (c=strcasecmp(aux->neighName,neigh))<=0){
+        if ( c==0 ){
+            return aux;
+        }
+        aux=aux->tail;
+    }
+    return NULL;
 }
 
 static TListTree addTreeRec(TListTree list, char *tree , int *flag){

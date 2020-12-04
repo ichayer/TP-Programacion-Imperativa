@@ -6,14 +6,18 @@
 #define CITY 1
 #define TREE 0
 
-int main(int argc, const char *argv[]){
 
+//#ifndef
+//para chequear que las variables de columnas estén bien pasadas
+//#endif
+int main(int argc, const char *argv[]){
     if(argc!=3){
         fprintf(stderr,"Numero de argumentos invalidos\n"); 
         return 1;
     }
     cityADT myCity = newCity();
     
+    //cambiar para que se decida en que orden se pasa, si primero barrio o arboles
     int error=read( open(argv[1],"r") ,myCity, CITY);
    
     if ( error==-1 ){
@@ -32,14 +36,13 @@ int main(int argc, const char *argv[]){
     size_t q1,q2;
     char **neighs = showAllNeigh( myCity , &q1); 
     char **query2 = mostPopularTree( myCity , &q2);
-    double *query1=treesPerPerson(myCity, neighs, &q1);
+    double *query1 = treesPerPerson(myCity, neighs, &q1);
+
     freeCity(myCity);
-    if ( genQ2( QUERY2 , neighs , query2 , q2 )){
-        error = 0;
-    }  
-    if(genQ1(QUERY1 , neighs , query1, q1)){
-        error =0;
+
+    if ( genQ2( QUERY2 , neighs , query2 , q2 ) && genQ1(QUERY1 , neighs , query1, q1)){
+        return 0;
     }
-    
-    return error;
+
+    return 1;
 }

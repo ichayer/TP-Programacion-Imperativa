@@ -10,7 +10,7 @@
 
 
 FILE* open( const char *file, char * mode) {
-	return fopen( file , mode) ;
+	return fopen( file , mode ) ;
 }
 
 static char **tokenLine( char * line , char* delim){
