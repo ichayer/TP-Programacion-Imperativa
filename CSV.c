@@ -8,7 +8,12 @@
 #define DELIM ";"
 #define EPSILON 0.001
 
-static char ** tokenLine(char* delim, char * line){
+
+FILE* open( const char *file, char * mode) {
+	return fopen( file , mode) ;
+}
+
+static char **tokenLine( char * line , char* delim){
 	char * token;	char ** new=NULL; size_t i=0;
 	token= strtok( line , delim );
     while ( token!=NULL){
@@ -18,48 +23,46 @@ static char ** tokenLine(char* delim, char * line){
 				return NULL;
 		}
 		new[i++]=token;
-		
 		token=strtok(NULL, delim );
     }
 	new=realloc( new , i * sizeof(char*));		
 	return new;
 }
 
-FILE* open( const char *file, char * mode) {
-	return fopen( file , mode) ;
-}
-
-
 int read( FILE* file, cityADT c, int dataType){
 	if(file==NULL){
 		return ERROR;
 	}
-	char myLine[BUFFER_SIZE]; char ** aux; 
+	char myLine[BUFFER_SIZE]; 
+	char ** aux; 
 	fgets(myLine, BUFFER_SIZE, file);
-	//como primer linea son heads, la primera vex que entro no llamo a addNeigh
+	//como primer linea son heads, la primera vez que entro no llamo a funciones
+
 	if(dataType){
-		readLine(myLine);
- 	while(fgets(myLine, BUFFER_SIZE, file)!=NULL){
-		aux=tokenLine( DELIM , myLine );
-		if(dataType){
-			if ( aux[1][0]!='\0'){
-				if (addNeigh( c , aux[NEIGH_NAME-1], atoi(aux[NEIGH_POP-1]) )==-1){
-					free(aux);
-					return ERROR;
-				}
+		while ( fgets(myLine , BUFFER_SIZE, file)!=NULL ){
+			aux=tokenLine(myLine, DELIM);
+			if (addNeigh( c , aux[NEIGH_NAME-1], atoi(aux[NEIGH_POP-1]) )==-1){
+				free(aux);
+				return ERROR;
 			}
+			free(aux);
 		}
-		else{
+	}
+	else{
+		while ( fgets(myLine , BUFFER_SIZE, file)!=NULL ){
+			aux=tokenLine(myLine, DELIM);
 			if (addTree( c , aux[NEIGH_TREE-1] , aux[SPNAME-1])==-1){
 				free(aux);
 				return ERROR;
 			}
- 		}
-		 free(aux);
+			free(aux);
+		}
 	}
 	fclose(file);
 	return 1;
 }
+	
+//mejorar	
 static void sortq1(char ** neigh, double * q, size_t dim){
     char * swap;
     int i=0, j=0; 
@@ -114,7 +117,8 @@ int genQ2 ( FILE* csv , char** neighs , char **trees , size_t dim){
         }
     }
     else{
-        fprintf(csv,"ERROR\n"); //En caso de que neighs y query2 sean NULL, indicaria que o no pudo generar espacio o no hay barrios, entonces en el archivo solamente indicaria ERROR.
+        fprintf(csv,"ERROR\n"); //En caso de que neighs y query2 sean NULL, indicaria que o no pudo generar espacio o no hay barrios, 
+								//entonces en el archivo solamente indicaria ERROR.
         err = 0;
     }
     fclose(csv); //Cerramos el archivo y luego liberamos los recursos utilizados
