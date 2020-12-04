@@ -117,14 +117,14 @@ static TListTree addTreeRec(TListTree list, char *tree , int *flag){
         TListTree aux=malloc(sizeof(Ttree));
         if ( aux==NULL ){
             *flag=ERROR;
-            return NULL;
+            return list;
         }
         aux->tail=list;
         aux->count=1;
         aux->treeName=malloc(strlen(tree)+1); 
         if(aux->treeName==NULL){
           *flag=ERROR;
-           return NULL;
+           return list;
         }
         strcpy(aux->treeName, tree);
         return aux;
@@ -160,7 +160,7 @@ static char * findMostPopular ( TListTree list ){
         if ( aux->count > max ){
             max=aux->count ;
             new=realloc(new , ( strlen(aux->treeName))+1 );
-            if ( new== NULL ){
+            if ( new == NULL ){
                 return NULL;
             }
             strcpy( new , aux->treeName);
@@ -215,7 +215,7 @@ char ** showAllNeigh( cityADT c , size_t *dim ){
     for (size_t i = 0; i < c->count; i++){
         new[i]=malloc( strlen(aux->neighName )+1 );
         if ( new[i]==NULL ){
-            freeRemaining(new,i);
+            freeRemaining(new,i+1);
             return NULL;
         }
         strcpy(new[i], aux->neighName);

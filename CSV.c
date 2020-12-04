@@ -92,7 +92,7 @@ int genQ1 ( FILE* csv, char** neighs , double * avg , size_t dim){
         }
     }
     else{
-        fprintf(csv,"ERROR\n"); //En caso de que neighs y query1 sean NULL, indicaria que o no pudo generar espacio o no hay barrios,
+        fprintf(csv,"ERROR\n"); //En caso de que neighs o query1 sean NULL, indicaria que o no pudo generar espacio o no hay barrios,
 								//entonces en el archivo solamente indicaria ERROR.
         err = 0;
     }
@@ -114,7 +114,7 @@ int genQ2 ( FILE* csv , char** neighs , char **trees , size_t dim){
         }
     }
     else{
-        fprintf(csv,"ERROR\n"); //En caso de que neighs y query2 sean NULL, indicaria que o no pudo generar espacio o no hay barrios, 
+        fprintf(csv,"ERROR\n"); //En caso de que neighs o query2 sean NULL, indicaria que o no pudo generar espacio o no hay barrios, 
 								//entonces en el archivo solamente indicaria ERROR.
         err = 0;
     }

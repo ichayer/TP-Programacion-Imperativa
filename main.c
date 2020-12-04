@@ -13,7 +13,14 @@ Error de heap 3
 */
 
 int main(int argc, const char *argv[]){
-
+    #if !define BUE 
+        fprintf(stderr, "No define las constantes\n");
+        return 1;
+    #endif
+    #if !define VAN 
+        fprintf(stderr, "No define las constantes\n");
+        return 1;
+    #endif
     if(argc!=3){
         fprintf(stderr,"Numero de argumentos invalidos\n"); 
         return 1;
@@ -23,12 +30,14 @@ int main(int argc, const char *argv[]){
     int error=read( open(argv[NEIGH_FILE],"r") ,myCity, CITY);
    
     if ( error==-1 ){
+        freeCity(myCity);
         fprintf(stderr,"Error en el archivo referente a los barrios\n");
         return 2;
     }
     error=read( open(argv[TREE_FILE],"r") , myCity, TREE);
 
     if ( error==-1 ){
+        freeCity(myCity);
         fprintf(stderr, "Error al abrir el archivo referente a los arboles\n");
         return 2;
     }
@@ -40,11 +49,12 @@ int main(int argc, const char *argv[]){
     char **query2 = mostPopularTree( myCity , &q2);
     double *query1 = treesPerPerson(myCity, neighs, &q1);
 
+    freeCity(myCity);
+
     if(neighs==NULL || query2==NULL || query1==NULL){
         fprintf(stderr,"Error en el heap\n");
         return 3;
     }
-    freeCity(myCity);
 
     if ( genQ2( QUERY2 , neighs , query2 , q2 ) && genQ1(QUERY1 , neighs , query1, q1)){
         return 0;
