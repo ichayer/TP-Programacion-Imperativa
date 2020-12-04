@@ -14,30 +14,32 @@ int main(int argc, const char *argv[]){
     }
     cityADT myCity = newCity();
     
-    int error=read( openToRead(argv[1]) ,myCity, CITY);
+    int error=read( open(argv[1],"r") ,myCity, CITY);
    
     if ( error==-1 ){
         fprintf(stderr,"Error en el archivo referente a los barrios\n");
         return 1;
     }
-    error=read( openToRead(argv[2]) , myCity, TREE);
+    error=read( open(argv[2],"r") , myCity, TREE);
 
     if ( error==-1 ){
         fprintf(stderr, "Error al abrir el archivo referente a los arboles\n");
         return 1;
     }
-    FILE * QUERY1= openToWrite("query1.csv"); //creacion del archivo con el total de arboles por habitantes por barrio
-    FILE * QUERY2= openToWrite("query2.csv"); //creacion del archivo con la especie de árbol más popular por barrio
+    FILE * QUERY1= open("query1.csv","w"); //creacion del archivo con el total de arboles por habitantes por barrio
+    FILE * QUERY2= open("query2.csv","w"); //creacion del archivo con la especie de árbol más popular por barrio
     
     size_t q1,q2;
     char **neighs = showAllNeigh( myCity , &q1); 
     char **query2 = mostPopularTree( myCity , &q2);
     double *query1=treesPerPerson(myCity, neighs, &q1);
     freeCity(myCity);
-
-    if ( genQ2( QUERY2 , neighs , query2 , q2 ) && genQ1(QUERY1 , neighs , query1, q1)){
-        return 0;
+    if ( genQ2( QUERY2 , neighs , query2 , q2 )){
+        error = 0;
     }  
+    if(genQ1(QUERY1 , neighs , query1, q1)){
+        error =0;
+    }
     
-    return 1;
+    return error;
 }
