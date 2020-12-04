@@ -1,34 +1,36 @@
-//aca tenemos un main que va  a llamar csv.h, y de ahí lee todo
 #include "cityADT.h"
 #include "CSV.h"
 #include <stdio.h>
 #include <stdlib.h>
+
 #define CITY 1
 #define TREE 0
 
+/*
+Error cantidad de argumentos o falta de definicion de constantes: 1
+Error de archivo: 2
+Error de heap 3
+*/
 
-//#ifndef
-//para chequear que las variables de columnas estén bien pasadas
-//#endif
 int main(int argc, const char *argv[]){
+
     if(argc!=3){
         fprintf(stderr,"Numero de argumentos invalidos\n"); 
         return 1;
     }
     cityADT myCity = newCity();
     
-    //cambiar para que se decida en que orden se pasa, si primero barrio o arboles
-    int error=read( open(argv[1],"r") ,myCity, CITY);
+    int error=read( open(argv[NEIGH_FILE],"r") ,myCity, CITY);
    
     if ( error==-1 ){
         fprintf(stderr,"Error en el archivo referente a los barrios\n");
-        return 1;
+        return 2;
     }
-    error=read( open(argv[2],"r") , myCity, TREE);
+    error=read( open(argv[TREE_FILE],"r") , myCity, TREE);
 
     if ( error==-1 ){
         fprintf(stderr, "Error al abrir el archivo referente a los arboles\n");
-        return 1;
+        return 2;
     }
     FILE * QUERY1= open("query1.csv","w"); //creacion del archivo con el total de arboles por habitantes por barrio
     FILE * QUERY2= open("query2.csv","w"); //creacion del archivo con la especie de árbol más popular por barrio
@@ -38,11 +40,16 @@ int main(int argc, const char *argv[]){
     char **query2 = mostPopularTree( myCity , &q2);
     double *query1 = treesPerPerson(myCity, neighs, &q1);
 
+    if(neighs==NULL || query2==NULL || query1==NULL){
+        fprintf(stderr,"Error en el heap\n");
+        return 3;
+    }
     freeCity(myCity);
 
     if ( genQ2( QUERY2 , neighs , query2 , q2 ) && genQ1(QUERY1 , neighs , query1, q1)){
         return 0;
     }
 
-    return 1;
+    fprintf(stderr,"No se pudo generar alguna de las queries\n");
+    return 2; 
 }

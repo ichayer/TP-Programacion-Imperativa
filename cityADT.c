@@ -169,6 +169,12 @@ static char * findMostPopular ( TListTree list ){
     }
     return new;
 }
+static void freeRemaining(char **vec,size_t dim){
+    for (size_t i = 0; i < dim; i++)
+        free(vec[i]);
+    free(vec);
+    return;
+}
 char ** mostPopularTree(cityADT c ,size_t *dim ){
     if ( c->count ==0 ){
         *dim=0;
@@ -185,6 +191,7 @@ char ** mostPopularTree(cityADT c ,size_t *dim ){
     for(int i=0; i<c->count ; i++){
         new[i]=findMostPopular( aux->firstTree );
         if ( new[i]== NULL ){
+            freeRemaining(new,i);
             return NULL;
         }
         aux=aux->tail;
@@ -208,6 +215,7 @@ char ** showAllNeigh( cityADT c , size_t *dim ){
     for (size_t i = 0; i < c->count; i++){
         new[i]=malloc( strlen(aux->neighName )+1 );
         if ( new[i]==NULL ){
+            freeRemaining(new,i);
             return NULL;
         }
         strcpy(new[i], aux->neighName);

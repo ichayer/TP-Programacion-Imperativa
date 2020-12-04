@@ -2,12 +2,9 @@
 #include <math.h>
 #include "cityADT.h"
 #include "CSV.h"
-#define BUFFER_SIZE 2048
+#define EPSILON 0.01
 #define BLOCK 20
 #define ERROR -1
-#define DELIM ";"
-#define EPSILON 0.001
-
 
 FILE* open( const char *file, char * mode) {
 	return fopen( file , mode ) ;

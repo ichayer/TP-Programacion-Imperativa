@@ -4,8 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Valor default de ERROR sera -1 para todo el archivo
-
 typedef struct cityCDT * cityADT;
 
 /* Crea una nueva ciudad */
