@@ -13,14 +13,12 @@ Error de heap 3
 */
 
 int main(int argc, const char *argv[]){
-    #if !define BUE 
+   
+    #if !defined VAN && !defined BUE
         fprintf(stderr, "No define las constantes\n");
         return 1;
     #endif
-    #if !define VAN 
-        fprintf(stderr, "No define las constantes\n");
-        return 1;
-    #endif
+    
     if(argc!=3){
         fprintf(stderr,"Numero de argumentos invalidos\n"); 
         return 1;

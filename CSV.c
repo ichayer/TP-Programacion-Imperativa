@@ -58,7 +58,36 @@ int read( FILE* file, cityADT c, int dataType){
 	fclose(file);
 	return 1;
 }
-	
+/*
+void sortingRec(double arr[],char *cArr[], size_t lim_izq, size_t lim_der)
+{
+  size_t izq=lim_izq,der=lim_der;
+  double aux,piv=arr[(izq+der)/2];
+  char *swap;
+
+  do{
+      while ( (arr[izq]-piv)>0 && izq<lim_der) izq++;
+      while( (piv-arr[der])>0 && der > lim_izq) der--;
+       
+       if(izq<=der){
+         aux=arr[izq];
+         arr[izq]=arr[der];
+         arr[der]=aux;
+         swap=cArr[izq];
+         cArr[izq]=cArr[der];
+         cArr[der]=swap;
+         izq++; der--;
+       }
+  } while (izq<=der);
+  if(lim_izq<der) sortingRec(arr,cArr,lim_izq,der);
+  if(lim_der>izq) sortingRec(arr,cArr,izq,lim_der);
+}
+
+void sort(char ** neigh, double * q, size_t dim){
+  sortingRec(q,neigh,0,dim-1);
+}
+*/	
+
 //mejorar	
 static void sortq1(char ** neigh, double * q, size_t dim){
     char * swap;
