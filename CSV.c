@@ -23,14 +23,22 @@ static char ** readLine(char* delim, char * line){
 	return new;
 }
 
-int read( const char* file, cityADT c, int dataType){
- 	FILE* myFile= fopen( file, "r");
-	if(myFile==NULL){
+FILE* openToRead ( const char *file ) {
+	return fopen( file , "r") ;
+}
+
+FILE* openToWrite ( const char * fileName ){
+	FILE *new= fopen("query2.csv","w");
+	return new;	
+}
+
+
+int read( FILE* file, cityADT c, int dataType){
+	if(file==NULL){
 		return ERROR;
 	}
-
 	char myLine[BUFFER_SIZE]; char ** aux; 
-	fgets(myLine, BUFFER_SIZE, myFile);
+	fgets(myLine, BUFFER_SIZE, file);
 	//como primer linea son heads, la primera vex que entro no llamo a addNeigh
  	while(fgets(myLine, BUFFER_SIZE, myFile)!=NULL){
 		aux=readLine( DELIM , myLine );
@@ -49,11 +57,50 @@ int read( const char* file, cityADT c, int dataType){
 			}
  		}
 		 free(aux);
-	 }
-	 fclose(myFile);
+	}
+	fclose(file);
 	return 1;
 }
 	
-	
+int genQ1 ( FILE* csv, char** neighs , double * avg , size_t dim){
+	int err=1;
+	if (  neighs!= NULL && avg!=NULL ){
+        fprintf(csv,"BARRIO;PROMEDIO_ARBOLES_HABITANTES\n"); //Head del archivo 1
+        for (size_t i = 0; i < dim; i++){
+            fprintf(csv,"%s;", neighs[i]); //Agregamos barrios ya ordenados
+            fprintf(csv,"%g\n", avg[i]); //Agregamos el promedio 
+            free(neighs[i]); 
+        }
+    }
+    else{
+        fprintf(csv,"ERROR\n"); //En caso de que neighs y query1 sean NULL, indicaria que o no pudo generar espacio o no hay barrios,
+								//entonces en el archivo solamente indicaria ERROR.
+        err = 0;
+    }
+    fclose(csv); //Cerramos el archivo y luego liberamos los recursos utilizados
+    free(avg);
+    free(neighs);
 
+	return err;
+}
+	
+int genQ2 ( FILE* csv , char** neighs , char **trees , size_t dim){
+	int err=1;
+	if (  neighs!= NULL && trees!=NULL ){
+        fprintf(csv,"BARRIO;NOMBRE_CIENTIFICO\n"); //Head del archivo 2
+        for (size_t i = 0; i < dim ; i++){
+            fprintf(csv,"%s;", neighs[i]);
+            fprintf(csv,"%s\n", trees[i]);
+            free(trees[i]);
+        }
+    }
+    else{
+        fprintf(csv,"ERROR\n"); //En caso de que neighs y query2 sean NULL, indicaria que o no pudo generar espacio o no hay barrios, entonces en el archivo solamente indicaria ERROR.
+        err = 0;
+    }
+    fclose(csv); //Cerramos el archivo y luego liberamos los recursos utilizados
+	free(trees);
+
+	return err;
+}
 
