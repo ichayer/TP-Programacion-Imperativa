@@ -1,6 +1,7 @@
 #ifndef __CSV_H_
 #define __CSV_H_
 #include <stdio.h>
+
 #define BUFFER_SIZE 1024
 
 #define DELIM ";"
