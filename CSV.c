@@ -137,8 +137,8 @@ void genQ1 ( FILE* csv, char** neighs , double * avg , size_t dim){
 void genQ2 ( FILE* csv , char** neighs , char **trees , size_t dim){
   fprintf(csv,"BARRIO;NOMBRE_CIENTIFICO\n"); //Head del archivo 2
   for (size_t i = 0; i < dim ; i++){
-      fprintf(csv,"%s;", neighs[i]);
       fprintf(csv,"%s\n", trees[i]);
+      fprintf(csv,"%s;", neighs[i]);
       free(trees[i]);
   }
   fclose(csv); //Cerramos el archivo y luego liberamos los recursos utilizados

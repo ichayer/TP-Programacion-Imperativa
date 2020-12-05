@@ -74,11 +74,15 @@ int main(int argc, const char *argv[]){
     //     return 3;
     // }
     //chequear que tal vez q2 y n son !=?
-    char** neighs = NULL;
+    char** neighs=NULL;
     char** query2=NULL;
     double*query1=NULL;
     if(retrieveData(myCity,neighs,query2,query1,&n)==-1){
         fprintf(stderr,"Error en el heap\n");
+        return 3;
+    }
+    for (size_t i = 0; i < n; i++){
+        printf("%s %s %g\n", neighs[i] , query2[i], query1[i]);
     }
     FILE * QUERY2= open("query2.csv","w"); //creacion del archivo con la especie de árbol más popular por barrio
     if ( QUERY2==NULL  ){
