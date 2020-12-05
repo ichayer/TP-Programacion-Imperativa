@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
 #include "cityADT.h"
 #include "CSV.h"
 #define EPSILON 0.01

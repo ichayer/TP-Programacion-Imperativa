@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <strings.h>
+#include <stdio.h> //borrar
 #include "cityADT.h"
 
 #define ERROR -1 
@@ -163,12 +164,65 @@ int addTree(cityADT c, char * neigh, char *tree){
     return flag;
 }
 static void freeRemaining(char **vec,size_t dim){
+    if(vec==NULL)
+        return;
     for (size_t i = 0; i < dim; i++)
         free(vec[i]);
     free(vec);
     return;
 }
 
+static void clearData(char ** data1, char ** data2, double * data3, size_t dim){
+    freeRemaining(data1,dim);
+    freeRemaining(data2,dim);
+    free(data3);
+}
+
+int retrieveData(cityADT c , char ***neighName , char *** mostPop, double ** avg,size_t *dim){
+
+    if(c->count == 0){
+        *dim=0;
+        return 0;
+    }
+    TListNeigh aux = c->firstNeigh;
+    *neighName = realloc(*neighName, c->count * sizeof(char*));
+    if(*neighName == NULL){
+        *dim=0;
+        return ERROR;
+    }
+    *mostPop=realloc(*mostPop, c->count * sizeof(char *));
+    if(*mostPop==NULL){
+        *dim=0;
+        free(*neighName);
+        return ERROR;
+    }
+    *avg = realloc(*avg, c->count *sizeof(double));
+    if(*avg==NULL){
+        *dim=0;
+        free(*neighName);
+        free(*mostPop);
+        return ERROR;
+    }
+    size_t i=0;
+    while(aux != NULL){
+        (*neighName)[i] = malloc(strlen(aux->neighName)+1);
+        (*mostPop)[i]=malloc(strlen(aux->mostPop->treeName)+1);
+        if((*neighName)[i] == NULL || (*mostPop)[i] == NULL){
+            clearData(*neighName,*mostPop,*avg,i+1);
+            *dim=0;
+            return ERROR;
+        }
+        (*avg)[i]=((floor(((double)aux->trees/aux->people)*100))/100);
+        strcpy((*neighName)[i],aux->neighName);
+        strcpy((*mostPop)[i],aux->mostPop->treeName);
+        i++;
+        aux = aux->tail;
+    }
+    *dim=c->count;
+    return 1;
+}
+
+/*
 char ** mostPopularTree(cityADT c ,size_t *dim ){
     if ( c->count ==0 ){
         *dim=0;
@@ -241,4 +295,4 @@ double* treesPerPerson ( cityADT c, char** neighs, size_t *dim){
     }
     *dim=c->count; 
     return new;
-}
+} */
