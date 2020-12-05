@@ -163,98 +163,6 @@ int addTree(cityADT c, char * neigh, char *tree){
     }
     return flag;
 }
-
-// static char * findMostPopular ( TListTree list ){
-//     TListTree aux=list;
-//     size_t max=0;
-//     char *new=NULL;
-//     while ( aux!=NULL ){
-//         if ( aux->count > max ){
-//             max=aux->count ;
-//             new=realloc(new , ( strlen(aux->treeName))+1 );
-//             if ( new == NULL ){
-//                 return NULL;
-//             }
-//             strcpy( new , aux->treeName);
-//         }    
-//         aux=aux->tail;
-//     }
-//     return new;
-// }
-
-// char ** mostPopularTree(cityADT c ,size_t *dim ){
-//     if ( c->count ==0 ){
-//         *dim=0;
-//         return NULL;
-//     }
-//     TListNeigh aux=c->firstNeigh;
-//     char **new=malloc(sizeof(char*)* c->count);
-
-//     if ( new== NULL ){
-//         *dim=0;
-//         return NULL;
-//     }
-
-//     for(int i=0; i<c->count ; i++){
-//         new[i]=findMostPopular( aux->firstTree );
-//         if ( new[i]== NULL ){
-//             freeRemaining(new,i);
-//             return NULL;
-//         }
-//         aux=aux->tail;
-//     }
-
-//     *dim=c->count;
-//     return new;
-// }
-// char ** showAllNeigh( cityADT c , size_t *dim ){
-//     if ( c->count ==0 ){
-//         *dim=0;
-//         return NULL;
-//     }
-
-//     char** new= malloc( c->count * sizeof(char*));
-//     if ( new== NULL ){
-//         *dim = 0;
-//         return NULL;
-//     }
-//     TListNeigh aux=c->firstNeigh ;
-//     for (size_t i = 0; i < c->count; i++){
-//         new[i]=malloc( strlen(aux->neighName )+1 );
-//         if ( new[i]==NULL ){
-//             freeRemaining(new,i+1);
-//             return NULL;
-//         }
-//         strcpy(new[i], aux->neighName);
-//         aux=aux->tail;
-//     }
-//     *dim=c->count;
-//     return new;
-// }
-
-
-// double* treesPerPerson ( cityADT c, char** neighs, size_t *dim){
-//     if ( c->count ==0 ){
-//         *dim=0;
-//         return NULL;
-//     }
-//     TListNeigh aux=c->firstNeigh ;
-//     double * new= malloc ( c->count * sizeof ( double ));
-//     if ( new==NULL ){
-//         *dim=0;
-//         return NULL;
-//     }
-
-//     double numAux;
-//     for ( size_t i = 0; i < c->count; i++){
-//         //arboles por habitante redondeado a 2 decimales
-//         numAux=((floor(((double)aux->trees/aux->people)*100))/100);
-//         new[i]=numAux;
-//         aux=aux->tail;
-//     }
-//     *dim=c->count; 
-//     return new;
-// }
 static void freeRemaining(char **vec,size_t dim){
     if(vec == NULL)
         return;
@@ -263,52 +171,144 @@ static void freeRemaining(char **vec,size_t dim){
     free(vec);
     return;
 }
-static void clearData(char ** data1, char ** data2, double * data3, size_t dim){
-    freeRemaining(data1,dim);
-    freeRemaining(data2,dim);
-    free(data3);
+static char * findMostPopular ( TListTree list ){
+    TListTree aux=list;
+    size_t max=0;
+    char *new=NULL;
+    while ( aux!=NULL ){
+        if ( aux->count > max ){
+            max=aux->count ;
+            new=realloc(new , ( strlen(aux->treeName))+1 );
+            if ( new == NULL ){
+                return NULL;
+            }
+            strcpy( new , aux->treeName);
+        }    
+        aux=aux->tail;
+    }
+    return new;
 }
-int retrieveData(cityADT c , char **neighName , char** mostPop, double * avg, size_t *dim){
-    if(c->count == 0){
+
+char ** mostPopularTree(cityADT c ,size_t *dim ){
+    if ( c->count ==0 ){
         *dim=0;
-        return 0;
+        return NULL;
     }
-    TListNeigh aux = c->firstNeigh;
-    neighName = realloc(neighName, c->count * sizeof(char*));
-    if(neighName == NULL){
+    TListNeigh aux=c->firstNeigh;
+    char **new=malloc(sizeof(char*)* c->count);
+
+    if ( new== NULL ){
         *dim=0;
-        return ERROR;
+        return NULL;
     }
-    mostPop=realloc(mostPop, c->count *sizeof(char*));
-    if(mostPop==NULL){
-        *dim=0;
-        free(neighName);
-        return ERROR;
-    }
-    avg = realloc(avg, c->count *sizeof(double));
-    if(avg==NULL){
-        *dim=0;
-        free(neighName);
-        free(mostPop);
-        return ERROR;
-    }
-    size_t i=0;
-    while(aux != NULL){
-        neighName[i] = malloc(strlen(aux->neighName)+1);
-        mostPop[i]=malloc(strlen(aux->mostPop->treeName)+1);
-        if(neighName[i] == NULL || mostPop[i] == NULL){
-            clearData(neighName,mostPop,avg,i+1);
-            *dim=0;
-            return ERROR;
+
+    for(int i=0; i<c->count ; i++){
+        new[i]=findMostPopular( aux->firstTree );
+        if ( new[i]== NULL ){
+            freeRemaining(new,i);
+            return NULL;
         }
-        avg[i]=((floor(((double)aux->trees/aux->people)*100))/100);
-        strcpy(neighName[i],aux->neighName);
-        strcpy(mostPop[i],aux->mostPop->treeName);
-        i++;
-        aux = aux->tail;
+        aux=aux->tail;
+    }
+
+    *dim=c->count;
+    return new;
+}
+char ** showAllNeigh( cityADT c , size_t *dim ){
+    if ( c->count ==0 ){
+        *dim=0;
+        return NULL;
+    }
+
+    char** new= malloc( c->count * sizeof(char*));
+    if ( new== NULL ){
+        *dim = 0;
+        return NULL;
+    }
+    TListNeigh aux=c->firstNeigh ;
+    for (size_t i = 0; i < c->count; i++){
+        new[i]=malloc( strlen(aux->neighName )+1 );
+        if ( new[i]==NULL ){
+            freeRemaining(new,i+1);
+            return NULL;
+        }
+        strcpy(new[i], aux->neighName);
+        aux=aux->tail;
     }
     *dim=c->count;
-    return 1;
+    return new;
 }
+
+
+double* treesPerPerson ( cityADT c, char** neighs, size_t *dim){
+    if ( c->count ==0 ){
+        *dim=0;
+        return NULL;
+    }
+    TListNeigh aux=c->firstNeigh ;
+    double * new= malloc ( c->count * sizeof ( double ));
+    if ( new==NULL ){
+        *dim=0;
+        return NULL;
+    }
+
+    double numAux;
+    for ( size_t i = 0; i < c->count; i++){
+        //arboles por habitante redondeado a 2 decimales
+        numAux=((floor(((double)aux->trees/aux->people)*100))/100);
+        new[i]=numAux;
+        aux=aux->tail;
+    }
+    *dim=c->count; 
+    return new;
+}
+
+// static void clearData(char ** data1, char ** data2, double * data3, size_t dim){
+//     freeRemaining(data1,dim);
+//     freeRemaining(data2,dim);
+//     free(data3);
+// }
+// int retrieveData(cityADT c , char **neighName , char** mostPop, double * avg, size_t *dim){
+//     if(c->count == 0){
+//         *dim=0;
+//         return 0;
+//     }
+//     TListNeigh aux = c->firstNeigh;
+//     neighName = realloc(neighName, c->count * sizeof(char*));
+//     if(neighName == NULL){
+//         *dim=0;
+//         return ERROR;
+//     }
+//     mostPop=realloc(mostPop, c->count *sizeof(char*));
+//     if(mostPop==NULL){
+//         *dim=0;
+//         free(neighName);
+//         return ERROR;
+//     }
+//     avg = realloc(avg, c->count *sizeof(double));
+//     if(avg==NULL){
+//         *dim=0;
+//         free(neighName);
+//         free(mostPop);
+//         return ERROR;
+//     }
+//     size_t i=0;
+//     while(aux != NULL){
+//         neighName[i] = malloc(strlen(aux->neighName)+1);
+//         mostPop[i]=malloc(strlen(aux->mostPop->treeName)+1);
+//         if(neighName[i] == NULL || mostPop[i] == NULL){
+//             clearData(neighName,mostPop,avg,i+1);
+//             *dim=0;
+//             return ERROR;
+//         }
+//         avg[i]=((floor(((double)aux->trees/aux->people)*100))/100);
+//         strcpy(neighName[i],aux->neighName);
+//         strcpy(mostPop[i],aux->mostPop->treeName);
+//         i++;
+//         aux = aux->tail;
+//     }
+//     *dim=c->count;
+//     return 1;
+// }
 
 
