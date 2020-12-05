@@ -27,6 +27,10 @@ int main(int argc, const char *argv[]){
     }
     
     cityADT myCity = newCity();
+    if(myCity == NULL){
+        fprintf(stderr, "Error de heap\n");
+        return 3;
+    }
     FILE* nFile=open(argv[NEIGH_FILE],"r");
 
     if ( nFile==NULL  ){
@@ -56,7 +60,7 @@ int main(int argc, const char *argv[]){
     if ( error==-1 ){
         freeCity(myCity);
         fclose(tFile);
-        fprintf(stderr, "Error en el archivo referente a los barrios\n");
+        fprintf(stderr, "Error en el archivo referente a los arboles\n");
         return 2;
     }
     size_t n;

@@ -38,58 +38,58 @@ static void freeTreeRec(TListTree list){
     if(list==NULL)
         return;
 
-    free(list->treeName);
-    freeTreeRec(list->tail);
-    free(list);
+    free(list->treeName);       //Libero el nombre del arbol
+    freeTreeRec(list->tail);    //Paso recursivo para el siguiente arbol
+    free(list);                 //Finalmente liberamos la lista de los arboles
 }
 static void freeRecNeigh(TListNeigh list){
-    if(list==NULL)
+    if(list==NULL)                          
         return;
-    free(list->neighName);
-    freeTreeRec(list->firstTree);
-    freeRecNeigh(list->tail);
-    free(list);
+    free(list->neighName);          //Libero el nombre del barrio
+    freeTreeRec(list->firstTree);   //Liberamos los arboles
+    freeRecNeigh(list->tail);       //Paso recursivo para el siguiente barrio
+    free(list);                     //Finalmente liberamos la lista de los barrios
 }
 void freeCity(cityADT c){
-    freeRecNeigh(c->firstNeigh);
-    free(c);
+    freeRecNeigh(c->firstNeigh);    //Liberamos cada barrio
+    free(c);                        //Finalmente liberamos la cuidad
 }
 
 static TListNeigh addNeighRec(TListNeigh list, char *neigh, size_t cantHab ,char *flag){
     int c;
-    if( list==NULL || (c=strcasecmp(list->neighName,neigh))>0 ){
-        TListNeigh aux=malloc(sizeof(TNeigh));
-        if(aux==NULL){
+    if( list==NULL || (c=strcasecmp(list->neighName,neigh))>0 ){    //Chequeamos si la lista esta vacia o si el barrio en el que estoy es alfabeticamente mayor
+        TListNeigh aux=malloc(sizeof(TNeigh));                      //Si se cumple creamos un nodo auxiliar 
+        if(aux==NULL){                                              //Si no pudo darle espacio al aux entonces el flag sale con error y corto
           *flag=ERROR;
            return NULL;
         }
-        aux->tail=list;
-        aux->people=cantHab;
-        aux->neighName=malloc(strlen(neigh)+1);
-        aux->firstTree=NULL;
+        aux->tail=list;                                             //Si no hubo problema el nodo lo asigno adelante de la lista
+        aux->people=cantHab;                                        //Asigno la cantidad de habitantes
+        aux->neighName=malloc(strlen(neigh)+1);                     //Le doy espacio al nombre debido a que es un char*
+        aux->firstTree=NULL;                                        //Inicializo la lista de arboles, la cantidad de arboles y el arbol mas popular en NULL/0
         aux->mostPop=NULL;
         aux->trees=0;
-        if(aux->neighName==NULL){
+        if(aux->neighName==NULL){                                   //Si no pudo darle espacio al nombre, flag sale con error y corto
           *flag=ERROR;
            return NULL;
         }
 
-        strcpy(aux->neighName,neigh);
-        *flag=1;
-        return aux;
+        strcpy(aux->neighName,neigh);                               //Si no hubo poblema con el espacio copio el nombre del barrio 
+        *flag=1;                                                    //No hubo problema entonces flag sale con 1
+        return aux;                                                 //Devuelvo la nueva lista
     } 
 
-    if(c==0)
+    if(c==0)                                                        //Si c==0 quiere decir que el barrio ya existe entonces no modifico y retorno la lista original
         return list;  
 
-    list->tail=addNeighRec(list->tail, neigh, cantHab,  flag);
+    list->tail=addNeighRec(list->tail, neigh, cantHab,  flag);      //Paso recursivo si el nombre que busco es mayor alfabeticamente al barrio en el que estoy, entonces paso al  siguente
     return list;
 }
 int addNeigh(cityADT c, char * neigh, size_t cantHab){
-    char flag=0;
-    c->firstNeigh=addNeighRec(c->firstNeigh, neigh, cantHab, &flag);
-    if(flag!=-1)
-        c->count+=flag;
+    char flag=0;                                                        //Creamos un flag por algun error en la funcion addNeighRec
+    c->firstNeigh=addNeighRec(c->firstNeigh, neigh, cantHab, &flag);    //Llamamos a la funcion addNeighRec con la lista de los barrios
+    if(flag!=-1)                                    
+        c->count+=flag;                                                 //Finalmente si el flag no indica error, entonces se suma un nuevo barrio
 
     return flag;
 }
@@ -104,6 +104,7 @@ int addNeigh(cityADT c, char * neigh, size_t cantHab){
     return searchNeigh(list->tail, neigh);
 }*/
 
+//Funcion para buscar un barrio en particular en la lista
 static TListNeigh searchNeigh ( TListNeigh list , char *neigh ){
     int c;
     TListNeigh aux=list;
@@ -118,49 +119,50 @@ static TListNeigh searchNeigh ( TListNeigh list , char *neigh ){
 
 static TListTree addTreeRec(TListTree list, char *tree , int *flag, TListNeigh node){
     int c;
-    if( list==NULL || (c=strcasecmp(list->treeName,tree))>0 ){
-        TListTree aux=malloc(sizeof(Ttree));
-        if ( aux==NULL ){
+    if( list==NULL || (c=strcasecmp(list->treeName,tree))>0 ){      //Chequeo si la lista de arboles esta vacia o el arbol en el que estoy es mayor alfabeticcamente que el que me piden
+        TListTree aux=malloc(sizeof(Ttree));                        //eso indicaria que el que busco no va a estar pues esta ordenada alfabeticamente. Creo un nodo que va a ser el nuevo arbol
+        if ( aux==NULL ){                                           //Si el malloc tiro algun error (no le pudo asignar memoria), flag sale con error y corto
             *flag=ERROR;
             return list;
         }
-        aux->tail=list;
-        if(node->mostPop == NULL){
+        aux->tail=list;                                             //El nuevo arbol va a estar al principio, entonces le asigno la lista atras
+        if(node->mostPop == NULL){                                  //Si no tiene arbol mas popular se lo asigno
             node->mostPop = aux;
         }
-        aux->count=1;
-        aux->treeName=malloc(strlen(tree)+1); 
-        if(aux->treeName==NULL){
+        aux->count=1;                                               //Inicializo la cantidad de arboles en 1 pues es el primero de su tipo
+        aux->treeName=malloc(strlen(tree)+1);                       //Le doy espacio al nombre del arbol pues es un char *
+        if(aux->treeName==NULL){                                    //Si fallo al darle memoria, flag sale con error y corto
           *flag=ERROR;
            return list;
         }
-        strcpy(aux->treeName, tree);
+        strcpy(aux->treeName, tree);                                //Si no hubo problema, copio el nombre del arbol
         return aux;
     } 
 
-    if(c==0){
+    if(c==0){                                                       //Si ya existe el arbol pedido, solamente incremento la catidad
         list->count++;
-        if(list->count > node->mostPop->count){
-            node->mostPop = list;
+        if(list->count > node->mostPop->count){                     //Si la cantida de arboles es mayor a la cantidad de los mas populares
+            node->mostPop = list;                                   //entonces le asigno la lista
         }
         return list; 
     }
 
-    list->tail=addTreeRec(list->tail, tree, flag, node);
+    list->tail=addTreeRec(list->tail, tree, flag, node);            //Si el arbol en el que estoy es menor alfabeticamente del que busco, paso al isguente
     return list;
 }
 int addTree(cityADT c, char * neigh, char *tree){
-    int flag=0;
-    TListNeigh aux=searchNeigh(c->firstNeigh,neigh);
-    if(aux==NULL)
+    int flag=0;                                                     //Flag por si la funcion recursiva tiene algun error
+    TListNeigh aux=searchNeigh(c->firstNeigh,neigh);                //Busco el barrio que quiero y lo asigno en un nodo auxiliar
+    if(aux==NULL){                                                  //Si no esta el barrio corto
         return flag;
-        
-    aux->firstTree=addTreeRec(aux->firstTree, tree , &flag, aux);
-    if (flag!=-1){
+    }
+    aux->firstTree=addTreeRec(aux->firstTree, tree , &flag, aux);   //Agrego el arbol 
+    if (flag!=-1){                                                  //Si el flag no indica algun error entonces sumo la cantidad de arboles
         aux->trees++;   
     }
     return flag;
 }
+//Funcion para liberar los recursos resultantes en el caso de que el programa tenga algun error despues de ya haber creado recursos
 static void freeRemaining(char **vec,size_t dim){
     if(vec==NULL)
         return;
@@ -169,53 +171,47 @@ static void freeRemaining(char **vec,size_t dim){
     free(vec);
     return;
 }
-
-static void clearData(char ** data1, char ** data2, double * data3, size_t dim){
-    freeRemaining(data1,dim);
-    freeRemaining(data2,dim);
-    free(data3);
-}
-
 int retrieveData(cityADT c , char ***neighName , char *** mostPop, double ** avg,size_t *dim){
-
-    if(c->count == 0){
+    if(c->count == 0){                                              //Valido que haya barrios
         *dim=0;
         return 0;
     }
-    TListNeigh aux = c->firstNeigh;
-    *neighName = realloc(*neighName, c->count * sizeof(char*));
-    if(*neighName == NULL){
+    TListNeigh aux = c->firstNeigh;                                 //Creo nodo auxiliar con el primer barrio
+    *neighName = realloc(*neighName, c->count * sizeof(char*));     //Le doy espacio al nombre del barrio para los archivos query1.csv y query2.csv
+    if(*neighName == NULL){                                         //Si fallo al darle espacio, dim sale en 0 y corto con error
         *dim=0;
         return ERROR;
     }
-    *mostPop=realloc(*mostPop, c->count * sizeof(char *));
-    if(*mostPop==NULL){
+    *mostPop=realloc(*mostPop, c->count * sizeof(char *));          //Le doy espacio al vector de arboles mas populares para el archivo query2.csv 
+    if(*mostPop==NULL){                                             //Si fallo al darle espacio, dim sale en 0 y corto con error
         *dim=0;
-        free(*neighName);
+        free(*neighName);                                           //Libero los barrios pues ya le di espacio
         return ERROR;
     }
-    *avg = realloc(*avg, c->count *sizeof(double));
-    if(*avg==NULL){
+    *avg = realloc(*avg, c->count *sizeof(double));                 //Le doy espacio al vector del promedio cantidad de arboles por habitantes
+    if(*avg==NULL){                                                 //Si falla al darle espacio, tengo que liberar los recursos, dim sale con 0 y corto ocn error
         *dim=0;
         free(*neighName);
         free(*mostPop);
         return ERROR;
     }
-    size_t i=0;
+    size_t i=0;                                                     //Inicializo el iterador de los barrios
     while(aux != NULL){
-        (*neighName)[i] = malloc(strlen(aux->neighName)+1);
-        (*mostPop)[i]=malloc(strlen(aux->mostPop->treeName)+1);
-        if((*neighName)[i] == NULL || (*mostPop)[i] == NULL){
-            clearData(*neighName,*mostPop,*avg,i+1);
+        (*neighName)[i] = malloc(strlen(aux->neighName)+1);         //Le doy espacio para asignar el nombre del barrio
+        (*mostPop)[i]=malloc(strlen(aux->mostPop->treeName)+1);     //Le doy espacio para asignar el nombre del arbol mas popular
+        if((*neighName)[i] == NULL || (*mostPop)[i] == NULL){       //Si alguno falla al darle espacio libero los recursos, dim sale con 0 y corto con error
+            freeRemaining(neighName[i],i+1);
+            freeRemaining(mostPop[i],i+1);
+            free(avg[i]);
             *dim=0;
             return ERROR;
         }
-        (*avg)[i]=((floor(((double)aux->trees/aux->people)*100))/100);
+        (*avg)[i]=((floor(((double)aux->trees/aux->people)*100))/100);  //Si no hubo problema asigno en cada uno su valor correspondiente
         strcpy((*neighName)[i],aux->neighName);
         strcpy((*mostPop)[i],aux->mostPop->treeName);
-        i++;
-        aux = aux->tail;
+        i++;                                                            //Incremento el iterador para pasar al siguente
+        aux = aux->tail;                                                //Paso  al siguente barrio
     }
-    *dim=c->count;
-    return 1;
+    *dim=c->count;                                                      //Dim sale con la cantidad de barrios totales
+    return 1;       
 }
