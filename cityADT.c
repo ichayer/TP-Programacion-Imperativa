@@ -2,7 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <strings.h>
-#include <stdio.h> //borrar
 #include "cityADT.h"
 
 #define ERROR -1 
@@ -35,7 +34,6 @@ cityADT newCity(void){
   return calloc(1,sizeof(cityCDT));
 }
 
-/*Hacer el free de cada nombre */
 static void freeTreeRec(TListTree list){
     if(list==NULL)
         return;
@@ -221,78 +219,3 @@ int retrieveData(cityADT c , char ***neighName , char *** mostPop, double ** avg
     *dim=c->count;
     return 1;
 }
-
-/*
-char ** mostPopularTree(cityADT c ,size_t *dim ){
-    if ( c->count ==0 ){
-        *dim=0;
-        return NULL;
-    }
-    TListNeigh aux=c->firstNeigh;
-    char **new=malloc(sizeof(char*)* c->count);
-
-    if ( new== NULL ){
-        *dim=0;
-        return NULL;
-    }
-
-    for(int i=0; i<c->count ; i++){
-        new[i]=malloc(strlen(aux->mostPop->treeName)+1);
-        if ( new[i]== NULL ){
-            freeRemaining(new,i);
-            return NULL;
-        }
-        strcpy(new[i], aux->mostPop->treeName );
-        aux=aux->tail;
-    }
-
-    *dim=c->count;
-    return new;
-}
-
-char ** showAllNeigh( cityADT c , size_t *dim ){
-    if ( c->count ==0 ){
-        *dim=0;
-        return NULL;
-    }
-    char** new= malloc( c->count * sizeof(char*));
-    if ( new== NULL ){
-        *dim = 0;
-        return NULL;
-    }
-    TListNeigh aux=c->firstNeigh ;
-    for (size_t i = 0; i < c->count; i++){
-        new[i]=malloc( strlen(aux->neighName )+1 );
-        if ( new[i]==NULL ){
-            freeRemaining(new,i+1);
-            return NULL;
-        }
-        strcpy(new[i], aux->neighName);
-        aux=aux->tail;
-    }
-    *dim=c->count;
-    return new;
-}
-
-double* treesPerPerson ( cityADT c, char** neighs, size_t *dim){
-    if ( c->count ==0 ){
-        *dim=0;
-        return NULL;
-    }
-    TListNeigh aux=c->firstNeigh ;
-    double * new= malloc ( c->count * sizeof ( double ));
-    if ( new==NULL ){
-        *dim=0;
-        return NULL;
-    }
-
-    double numAux;
-    for ( size_t i = 0; i < c->count; i++){
-        //arboles por habitante redondeado a 2 decimales
-        numAux=((floor(((double)aux->trees/aux->people)*100))/100);
-        new[i]=numAux;
-        aux=aux->tail;
-    }
-    *dim=c->count; 
-    return new;
-} */
