@@ -119,8 +119,7 @@ static void sortq1(char ** neigh, double * q, size_t dim){
         }
     }
 }	
-int genQ1 ( FILE* csv, char** neighs , double * avg , size_t dim){
-  	int err=1;
+void genQ1 ( FILE* csv, char** neighs , double * avg , size_t dim){
 		//sortq1( avg,neighs,0,dim-1);
     sortq1(neighs,avg,dim);
     fprintf(csv,"BARRIO;PROMEDIO_ARBOLES_HABITANTES\n"); //Head del archivo 1
@@ -133,11 +132,9 @@ int genQ1 ( FILE* csv, char** neighs , double * avg , size_t dim){
     fclose(csv); //Cerramos el archivo y luego liberamos los recursos utilizados
     free(avg);
     free(neighs);
-	  return err;
 }
 	
-int genQ2 ( FILE* csv , char** neighs , char **trees , size_t dim){
-	int err=1;
+void genQ2 ( FILE* csv , char** neighs , char **trees , size_t dim){
   fprintf(csv,"BARRIO;NOMBRE_CIENTIFICO\n"); //Head del archivo 2
   for (size_t i = 0; i < dim ; i++){
       fprintf(csv,"%s;", neighs[i]);
@@ -147,6 +144,5 @@ int genQ2 ( FILE* csv , char** neighs , char **trees , size_t dim){
   fclose(csv); //Cerramos el archivo y luego liberamos los recursos utilizados
 	free(trees);
 
-	return err;
 }
 

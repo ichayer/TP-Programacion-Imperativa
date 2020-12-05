@@ -35,10 +35,10 @@ int read( FILE* file, cityADT c, int dataType);
 /* 
 ** Llena el archivo de query1.csv con los datos pedidos 
 */
-int genQ1 ( FILE* csv, char** neighs , double * avg , size_t dim);
+void genQ1 ( FILE* csv, char** neighs , double * avg , size_t dim);
 /* 
 ** Llena el archivo de query2.csv con los datos pedidos
 */
-int genQ2 ( FILE* csv , char** neighs , char **trees , size_t dim);
+void genQ2 ( FILE* csv , char** neighs , char **trees , size_t dim);
 
 #endif 

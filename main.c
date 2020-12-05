@@ -56,25 +56,30 @@ int main(int argc, const char *argv[]){
         fprintf(stderr, "Error en el archivo referente a los barrios\n");
         return 2;
     }
-    size_t n,q1,q2;
+    size_t n;
 
     //si alguno de los datos recolectados para resolver las queries, se liberan los recursos de las demas
     //se alterna la llamada con el caso de error para simplificar como se liberan los mismos
 
-    char **neighs = showAllNeigh( myCity , &n); 
-    if ( neighs==NULL ){
-        fprintf(stderr,"Error en el heap\n");
-        return 3;
-    }
+    // char **neighs = showAllNeigh( myCity , &n); 
+    // if ( neighs==NULL ){
+    //     fprintf(stderr,"Error en el heap\n");
+    //     return 3;
+    // }
 
-    char **query2 = mostPopularTree( myCity , &q2);
-    if ( query2==NULL ){
-        free(neighs);//y de cada palabra    
-        fprintf(stderr,"Error en el heap\n");
-        return 3;
-    }
+    // char **query2 = mostPopularTree( myCity , &q2);
+    // if ( query2==NULL ){
+    //     free(neighs);//y de cada palabra    
+    //     fprintf(stderr,"Error en el heap\n");
+    //     return 3;
+    // }
     //chequear que tal vez q2 y n son !=?
-
+    char** neighs = NULL;
+    char** query2=NULL;
+    double*query1=NULL;
+    if(retrieveData(myCity,neighs,query2,query1,&n)==-1){
+        fprintf(stderr,"Error en el heap\n");
+    }
     FILE * QUERY2= open("query2.csv","w"); //creacion del archivo con la especie de árbol más popular por barrio
     if ( QUERY2==NULL  ){
         fprintf(stderr,"Error al crear el archivo de query2\n");
@@ -82,16 +87,16 @@ int main(int argc, const char *argv[]){
         free(query2);//y de cada palabra
         return 2;
     }
-    genQ2( QUERY2 , neighs , query2 , q2 ) ;
+    genQ2( QUERY2 , neighs , query2 , n) ;
     //llegado a este punto todos los datos usados por genQ2 funcionan, no hacen falta más chequeos?
 
-    double *query1 = treesPerPerson(myCity, neighs, &q1);
-    if ( query1==NULL ){
-        free(neighs);//y de cada palabra 
-        free(query2);//y de cada palabra
-        fprintf(stderr,"Error en el heap\n");
-        return 3;
-    }
+    // double *query1 = treesPerPerson(myCity, neighs, &q1);
+    // if ( query1==NULL ){
+    //     free(neighs);//y de cada palabra 
+    //     free(query2);//y de cada palabra
+    //     fprintf(stderr,"Error en el heap\n");
+    //     return 3;
+    // }
     //chequear que tal vez q1 y n son !=?
 
     FILE * QUERY1= open("query1.csv","w"); //creacion del archivo con el total de arboles por habitantes por barrio
@@ -102,7 +107,7 @@ int main(int argc, const char *argv[]){
         return 2;
     }
 
-    genQ1(QUERY1 , neighs , query1, q1);
+    genQ1(QUERY1 , neighs , query1, n);
     //llegado a este punto todos los datos usados por genQ1 funcionan, no hacen falta más chequeos?
 
     freeCity(myCity);     
