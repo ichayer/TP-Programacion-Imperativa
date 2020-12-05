@@ -5,6 +5,9 @@
 
 #define CITY 1
 #define TREE 0
+#define RUNOUTOFMEM fprintf(stderr, "No hay memoria suficiente\n");
+/* chequear el uso de QSORT libreria estandar para NO usar el bubble sort */
+
 
 /*
 Error cantidad de argumentos o falta de definicion de constantes: 1
@@ -14,12 +17,6 @@ Error de heap 3
 
 /* Libera los recursos utilizados por los vectores */
 void freeRemaining(char **vec,size_t dim);
-
-int main(int argc, const char *argv[]){
-    #if !defined VAN && !defined BUE      //como se compilan ambos archivos a la vez, si las dos constantes faltaran deberíamos abortar
-        fprintf(stderr, "No define las constantes\n");
-        return 1;
-    #endif
     
     if(argc!=3){
         fprintf(stderr,"Numero de argumentos invalidos\n"); 
