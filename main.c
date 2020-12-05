@@ -6,6 +6,7 @@
 #define CITY 1
 #define TREE 0
 #define RUNOUTOFMEM fprintf(stderr, "No hay memoria suficiente\n");
+
 /* chequear el uso de QSORT libreria estandar para NO usar el bubble sort */
 
 
@@ -17,7 +18,8 @@ Error de heap 3
 
 /* Libera los recursos utilizados por los vectores */
 void freeRemaining(char **vec,size_t dim);
-    
+
+int main(int argc, char const *argv[]){
     if(argc!=3){
         fprintf(stderr,"Numero de argumentos invalidos\n"); 
         return 1;
