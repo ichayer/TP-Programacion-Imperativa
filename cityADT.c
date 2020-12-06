@@ -209,23 +209,23 @@ int retrieveData(cityADT c , char ***neighName , char *** mostPop, double ** avg
         }*/
         //para hacer fallar. Probar bien mañana
         (*neighName)[i] = malloc(strlen(aux->neighName)+1);         //Le doy espacio para asignar el nombre del barrio
-        if ( (*neighName)[i]==NULL ){
+        if ( (*neighName)[i]==NULL ){                               //Si fallo al darle espacio, libero los recursos utilizados, dim sale en 0 y corto con error
             freeRemaining(*neighName);//,i-1);
             freeRemaining(*mostPop);//,i);
             free(*avg);
             *dim=0;
             return ERROR;
         }
-        (*mostPop)[i] = malloc(strlen(aux->mostPop->treeName)+1);   //Le doy espacio para asignar el nombre del arbol mas popular
 
-        if ( (*mostPop)[i]==NULL ){
+        (*mostPop)[i] = malloc(strlen(aux->mostPop->treeName)+1);   //Le doy espacio para asignar el nombre del arbol mas popular
+        if ( (*mostPop)[i]==NULL ){                                 //Si alguno falla al darle espacio libero los recursos, dim sale con 0 y corto con error
             freeRemaining(*neighName);//,i);
             freeRemaining(*mostPop);//,i);
             free(*avg);
             *dim=0;
             return ERROR;
         }
-                                                                        //Si alguno falla al darle espacio libero los recursos, dim sale con 0 y corto con error
+
         (*avg)[i]=((floor(((double)aux->trees/aux->people)*100))/100);  //Si no hubo problema asigno en cada uno su valor correspondiente
         strcpy((*neighName)[i],aux->neighName);
         strcpy((*mostPop)[i],aux->mostPop->treeName);

@@ -54,11 +54,10 @@ int main(int argc, char const *argv[]){
     error=read( tFile , myCity, TREE);
     if ( error==-1 ){
         freeCity(myCity);
-        fclose(tFile);
+        //fclose(tFile);
         fprintf(stderr,"Error al cargar los datos de los arboles (heap)\n");
         return 3;
     }
-
     size_t n;
     //Ahora vamos a cargar los vectores que nos van a servir para resolver las querys.
     char** neighs=NULL; char** query2=NULL;  double* query1=NULL; 
