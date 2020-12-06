@@ -1,7 +1,7 @@
 # Trabajo práctico final de Programación Imperativa 09/12/2020.
 
 El proyecto permite procesar la información de los árboles censados en distintas ciudades del mundo.
-Su objetivo principal es la creación de ciertas consultas especificas asignadas por la cátedra.
+Su objetivo principal es la creación de ciertas consultas especificas.
 En el siguiente archivo, se detallará cómo generar los ejecutables y de cómo ejecutarlos. 
 
 # MAKEFILE
@@ -9,9 +9,13 @@ En el siguiente archivo, se detallará cómo generar los ejecutables y de cómo 
       make all 
       make clean 
       
-El comando "make all" se encarga de generar los dos ejecutables pedidos para este trabajo practico: arbolesADTBUE y arbolesADTVAN mientras que "make clean" eliminará todos los archivos generados por el makefile.
+El comando "make all" se encarga de generar los dos ejecutables pedidos para este trabajo practico:
 
-Para el trabajo práctico analizaremos la ciudad de Vancouver y de Buenos Aires. Si se quisiera generar un ejecutable de una ciudad en particular ejecutar alguno de los siguientes comandos:
+      arbolesADTBUE y arbolesADTVAN 
+
+El comando"make clean" eliminará todos los archivos generados por el makefile.
+
+Para el trabajo práctico analizaremos la ciudad de Vancouver y de Buenos Aires. Si se quisiera generar un ejecutable de una ciudad en particular, ejecutar alguno de los siguientes comandos:
 
       make arbolesADTBUE 
       make arbolesADTVEN 
