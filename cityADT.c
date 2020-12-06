@@ -56,10 +56,11 @@ void freeCity(cityADT c){
 
 static TListNeigh addNeighRec(TListNeigh list, char *neigh, size_t cantHab ,int *flag ){
     int c;
+
     if( list==NULL || (c=strcasecmp(list->neighName,neigh))>0 ){    //Chequeamos si la lista esta vacia o si el barrio en el que estoy es alfabeticamente mayor
         TListNeigh aux=malloc(sizeof(TNeigh));                      //Si se cumple creamos un nodo auxiliar 
-        
-        if(aux==NULL){                                              //Si no pudo darle espacio al aux entonces el flag sale con error y corto
+
+        if(aux==NULL){                                              //Si no pudo darle espacio al aux entonces el flag sale con error y corto. 
           *flag=ERROR;                                              //Devolvemos list pues sino podríamos perder la sublista que sería tail
            return list;                                             //y cuando hagamos freeCity en el front nos quedarían nodos sin liberar
         }
@@ -87,7 +88,11 @@ static TListNeigh addNeighRec(TListNeigh list, char *neigh, size_t cantHab ,int 
     return list;
 }
 int addNeigh(cityADT c, char * neigh, size_t cantHab){
-    int flag=0;                                                        //Creamos un flag por algun error en la funcion addNeighRec
+    int flag=0; 
+
+    if(cantHab==0 || neigh[0]=='\0')                                 //Si la cantidad de habitantes es 0 o si el barrio es un string vacio, no lo agregamos.
+        return flag;  
+                                                                     //Creamos un flag por algun error en la funcion addNeighRec
     c->firstNeigh=addNeighRec(c->firstNeigh, neigh, cantHab, &flag );  //Llamamos a la funcion addNeighRec con la lista de los barrios
     if(flag!=-1)                                    
         c->count++;                                                    //Finalmente si el flag no indica error, entonces se suma un nuevo barrio
@@ -142,9 +147,9 @@ static TListTree addTreeRec(TListTree list, char *tree , int *flag, TListNeigh n
     return list;
 }
 int addTree(cityADT c, char * neigh, char *tree){
-    int flag=0 ;                                                    //Flag por si la funcion recursiva tiene algun error
-    TListNeigh aux=searchNeigh(c->firstNeigh,neigh);                //Busco el barrio que quiero y lo asigno en un nodo auxiliar
-    if(aux==NULL){                                                  //Si no esta el barrio corto
+    int flag=0;                                                     //Flag por si la funcion recursiva tiene algun error.
+    TListNeigh aux=searchNeigh(c->firstNeigh,neigh);                //Busco el barrio que quiero y lo asigno en un nodo auxiliar.
+    if(aux==NULL || tree[0]=='\0'){                                  //Si no esta el barrio o si el arbol que me pasan es un string vacio corto.
         return flag;
     }
     aux->firstTree=addTreeRec(aux->firstTree, tree , &flag, aux );  //Agrego el arbol al barrio encontrado

@@ -20,10 +20,8 @@ Para el trabajo práctico analizaremos la ciudad de Vancouver y de Buenos Aires.
       make arbolesADTBUE 
       make arbolesADTVEN 
 
-A continuación se definen los distintos campos
-
 # Compilación
-Se debe reemplazar en CSV.h las columnas de interes para procesar los datos de Vancouver y de Buenos Aires de manera correcta.
+Se debe reemplazar en CSV.h las columnas de interés para procesar los datos de Vancouver y de Buenos Aires de manera correcta.
 
       NEIGH_FILE : archivo de los barrios (leer sección de Ejecución).
       TREE_FILE  : archivo de los arboles (leer seccion de Ejecución).
@@ -32,7 +30,7 @@ Se debe reemplazar en CSV.h las columnas de interes para procesar los datos de V
       SPNAME     : columna del nombre cientifico de los árboles del archivo CSV de los árboles
       NEIGH_TREE : columna del barrio donde se ubican los distintos árboles del archivo CSV de los árboles.
 
-Supongamos que quisieramos procesar los datos de otra ciudad, por ejemplo, la ciudad de París. Entonces en el makefile se deben agregar las siguientes lineas:
+Supongamos que quisieramos procesar los datos de otra ciudad, por ejemplo, la ciudad de París. Entonces en el makefile se deben agregar las siguientes líneas:
       
       OUTPUT_FILE_PAR=arbolesADTPAR
 
@@ -74,11 +72,11 @@ Se listan unicamente los barrios presentes en el archivo CSV de barrios.
 El orden de impresión es alfabético por nombre de barrio.
 
       Nota: 
-      El programa no contabiliza árboles de un barrio que no esta en el archivo de barrios.
+      El programa no procesa árboles de un barrio que no esta en el archivo de barrios.
       El programa no acepta barrios repetidos en el archivo de barrios. En caso de haberlos, se los ignora. 
 
 # Errores
-El programa no abortará. El programa informará mediante la salida de errores los posibles problemas que pudieran surgir. Los codigos de error y sus referencias son: 
+El programa no abortará. El programa informará mediante la salida de errores los posibles problemas que pudieran surgir. Los códigos de error y sus referencias son: 
 >1) Error cantidad de argumentos.
 >2) Error en el procesamiento de un archivo.
 >3) No hay suficiente memoria.
