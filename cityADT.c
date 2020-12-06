@@ -186,11 +186,11 @@ int retrieveData(cityADT c , char ***neighName , char *** mostPop, double ** avg
             (*mostPop)[i]=NULL;
             return ERROR;
         }
+     
         (*mostPop)[i] = malloc(strlen(aux->mostPop->treeName)+1);   //Le doy espacio para asignar el nombre del arbol mas popular
         if ( (*mostPop)[i]==NULL ){                                 //Si alguno falla al darle espacio libero los recursos, dim sale con 0 y corto con error
-            free((*neighName)[i]);                                  //libero el malloc que SI funciona de antes
-            (*neighName)[i]=NULL;                                   //lo reemplazo por la marca de final del main
-            *dim=0;
+            (*neighName)[i+1]=NULL;                                 //Agrego marca de final en la posicion siguiente pues (*neighName)[i] anduvo, 
+            *dim=0;                                                 
             return ERROR;
         }
 
