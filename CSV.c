@@ -3,6 +3,7 @@
 #include <string.h>
 #include "cityADT.h"
 #include "CSV.h"
+
 #define EPSILON 0.01
 #define BLOCK 10
 #define ERROR -1
@@ -63,7 +64,9 @@ int read( FILE* file, cityADT c, int dataType){
 }
 
 //Funcion para ordenar los vectores de barrios y promedio de arboles por habitantes decrecientemente y con orden alfabetico
-//mejorar	
+//Sabemos que bubble sort no es el mejor algoritmo para ordenar, pero después de intentar implementar quicksort y
+//dual pivot quicksort teniamos casos que se rompia el orden alfabetico
+//Priorizamos que la query1 se resolviera correctamente y no tanto su eficiencia por este motivo
 static void sortq1(char ** neigh, double * q, size_t dim){
   char * swap;                                            
   int i=0, j=0;                                           
@@ -84,6 +87,7 @@ static void sortq1(char ** neigh, double * q, size_t dim){
     }
   }
 }	
+
 void genQ1 ( FILE* csv, char** neighs , double * avg , size_t dim){
     sortq1(neighs,avg,dim);                                             //Ordenamos los vectores para guardarlos de manera correcta
     fprintf(csv,"BARRIO;PROMEDIO_ARBOLES_HABITANTES\n");                //Head del archivo 1

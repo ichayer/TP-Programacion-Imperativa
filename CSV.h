@@ -2,8 +2,9 @@
 #define __CSV_H_
 #include <stdio.h>
 
+//estas constantes pueden llegar a modificarse si la extensión de cada linea fuera superior a 1024
+//o si se deseara leer un archivo delimitado por otros caracteres
 #define BUFFER_SIZE 1024
-
 #define DELIM ";"
 
 //Columnas donde se encuentra cada informacion necesaria
