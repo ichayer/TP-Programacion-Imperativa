@@ -62,41 +62,6 @@ int read( FILE* file, cityADT c, int dataType){
 	return 1;
 }
 
-/*void sortq1(double arr[],char *cArr[], int lim_izq, int lim_der){
-  int izq=lim_izq;
-  int der=lim_der;
-  int piv=lim_der;
-  double aux;
-  
-  char *swap;
-
-  while (izq<der){
-    while ( (arr[izq]-arr[piv])>0 && izq<lim_der) 
-		izq++;
-    while( (arr[piv]-arr[der])>0 && der > lim_izq) 
-		der--;
-       
-       if(izq<der){
-         aux=arr[izq];
-         arr[izq]=arr[der];
-         arr[der]=aux;
-         swap=cArr[izq];
-         cArr[izq]=cArr[der];
-         cArr[der]=swap;
-         //izq++; der--;
-       }
-  } 
-
-	aux=arr[piv];
-  	arr[piv]=arr[der];
-  	arr[der]=aux;
-	sortq1(arr,cArr,lim_izq,der);
-  	sortq1(arr,cArr,izq,lim_der);
-}*/
-
-/*void sortq1(char ** neigh, double * q, size_t dim){
-  sortingRec(q,neigh,0,dim-1);
-}*/
 //Funcion para ordenar los vectores de barrios y promedio de arboles por habitantes decrecientemente y con orden alfabetico
 //mejorar	
 static void sortq1(char ** neigh, double * q, size_t dim){
@@ -120,7 +85,6 @@ static void sortq1(char ** neigh, double * q, size_t dim){
   }
 }	
 void genQ1 ( FILE* csv, char** neighs , double * avg , size_t dim){
-		//sortq1( avg,neighs,0,dim-1);
     sortq1(neighs,avg,dim);                                             //Ordenamos los vectores para guardarlos de manera correcta
     fprintf(csv,"BARRIO;PROMEDIO_ARBOLES_HABITANTES\n");                //Head del archivo 1
     for (size_t i = 0; i < dim; i++){

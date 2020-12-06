@@ -95,18 +95,8 @@ int addNeigh(cityADT c, char * neigh, size_t cantHab){
     return flag;
 }
 
-//decidir si es mejor iterativo o recursivo
-static TListNeigh searchNeigh(TListNeigh list, char *neigh){
-    int c;
-    if(list==NULL || (c=strcasecmp(list->neighName,neigh))>0 )
-        return NULL;
-    if(c==0)
-        return list;
-    return searchNeigh(list->tail, neigh);
-}
-
 //Funcion para buscar un barrio en particular en la lista
-/*static TListNeigh searchNeigh ( TListNeigh list , char *neigh ){
+static TListNeigh searchNeigh ( TListNeigh list , char *neigh ){
     int c;
     TListNeigh aux=list;
     while( aux!=NULL && (c=strcasecmp(aux->neighName,neigh))<=0){
@@ -116,7 +106,7 @@ static TListNeigh searchNeigh(TListNeigh list, char *neigh){
         aux=aux->tail;
     }
     return NULL;
-}*/
+}
 static TListTree addTreeRec(TListTree list, char *tree , int *flag, TListNeigh node ){
     int c;
     if( list==NULL || (c=strcasecmp(list->treeName,tree))>0 ){      //Chequeo si la lista de arboles esta vacia o el arbol en el que estoy es mayor alfabeticcamente que el que me piden
