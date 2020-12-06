@@ -1,6 +1,7 @@
 #ifndef __CITYADT_H
 #define __CITYADT_H
 #include <stdlib.h>
+
 typedef struct cityCDT * cityADT;
 
 /* Crea una nueva ciudad */
@@ -23,25 +24,11 @@ int addNeigh(cityADT c, char * neigh, size_t cantHab);
 */
 int addTree(cityADT c, char * neigh, char *tree);
 
-/*
-** Devuelve un vector de chars ordenado alfabeticamente,con los nombres cientificos de los arboles mas populares de cada barrio.
-** Dim parametro de entrada y salida con la cantidad de barrios.
-** Retorna NULL en caso de ERROR y dim en 0 si esta vacio.
+/* Funcion que lee toda la informacion necesaria para resolver los queries en un ciclo
+** Todos los vectores se guardan según orden alfabético de los barrios
+** En los punteros de char** pone NULL como marca de final.
+** Devuelve -1 en caso de ERROR y 1 si no hubo problemas al crear la memoria para los vectores
 */
-//char ** mostPopularTree(cityADT c , size_t * dim);
-
-/*
-** Devuelve un vector de chars de los barrios en orden alfabético.
-** Dim parametro de entrada y salida con la cantidad de barrios.
-** Retorna NULL en caso de ERROR y dim en 0 si esta vacio o hubo algo ERROR.
-*/
-//char ** showAllNeigh( cityADT c , size_t *dim );
-
-/* Devuelve la cantidad de arboles por persona en cada barrio, ordenado alfabeticamente.
-** Retorna NULL y dim en -1 en caso de ERROR o dim en 0 si esta vacio.
-*/
-//double* treesPerPerson ( cityADT c, char **neighs , size_t *dim);
-
-int retrieveData(cityADT c , char ***neighName , char *** mostPop, double ** avg,size_t *dim);
+int retrieveData(cityADT c , char ***neighName , char *** mostPop, double ** avg, size_t *dim);
 
 #endif

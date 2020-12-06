@@ -4,7 +4,7 @@
 #include "cityADT.h"
 #include "CSV.h"
 #define EPSILON 0.01
-#define BLOCK 20
+#define BLOCK 10
 #define ERROR -1
 
 FILE* open( const char *file, char * mode) {
@@ -13,7 +13,7 @@ FILE* open( const char *file, char * mode) {
 //Funcion para limpiar la linea de ';'. Recibe la linea completa y la devuelve sin ';'
 static char **tokenLine( char * line , char* delim){
 	  char * token;	char ** new=NULL; size_t i=0;           //Inicializo el vector auxiliar y un contador que va a reprensentar la dimension
-	  token= strtok( line , delim );                        //Leo la linea hasta el primer ';'
+	  token= strtok( line , delim );                        //Leo la linea hasta el primer ';' (primer string)
     while ( token!=NULL){                                 
 		  if ( i%BLOCK ==0  ){                                //Me fijo si tengo espacio para guardar el nuevo bloque de linea (entre ';')
 		  	new=realloc( new , ( i +BLOCK )* sizeof(char*));  //Si no tengo, le doy espacio
@@ -21,10 +21,10 @@ static char **tokenLine( char * line , char* delim){
 				    return NULL;
 		  }
 		  new[i++]=token;                                     //Le asigno la linea a mi auxiliar e incremento el iterador
-		  token=strtok(NULL, delim );                         //Le paso NULL para que "pase a la siguiente linea" (pase al siguente bloque sin ';') 
+		  token=strtok(NULL, delim );                         //Le paso NULL para que "pase al siguiente token" (pase al siguente bloque sin ';') 
     }
-	  new=realloc( new , i * sizeof(char*));		            //Si me sobro espacio lo libero
-	  return new;                                           //Retorno la linea sin ';'
+	  new=realloc( new , i * sizeof(char*));		            //Si me sobro espacio, achico el vector a la cantidad real de elementos que guarde
+	  return new;                                           //Retorno el vector que guarda cada string de la linea por separado
 }
 
 int read( FILE* file, cityADT c, int dataType){
@@ -51,12 +51,11 @@ int read( FILE* file, cityADT c, int dataType){
       if (aux==NULL){                                             //Si fallo corto y salgo con error
         return ERROR;
       }
-      //ya chequeado con las pruebas del ADT
 			if (addTree( c , aux[NEIGH_TREE-1] , aux[SPNAME-1])==ERROR){//Si no hubo problema agrego el arbol chequeando que no falle al agregar
 				free(aux);                                                //Si  fallo, libero los recursos y corto con error
 				return ERROR;
 			}
-			free(aux);  
+			free(aux);                                                  //libero aux para seguir leyendo la siguiente linea
 		}
 	}
 	fclose(file);                                                   //Cierro el archivo
