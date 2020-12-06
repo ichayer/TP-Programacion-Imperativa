@@ -1,15 +1,15 @@
 # Trabajo práctico final de Programación Imperativa 09/12/2020.
 
 El proyecto permite procesar la información de los árboles censados en distintas ciudades del mundo.
-Su objetivo principal es la creación de ciertas consultas especificas.
-En el siguiente archivo, se detallará cómo generar los ejecutables y de cómo ejecutarlos. 
+Su objetivo principal es la resolución de ciertas consultas (queries) específicas,
+En el siguiente archivo, se detallará cómo generar los ejecutables y cómo ejecutarlos. 
 
 # MAKEFILE
 
       make all 
       make clean 
       
-El comando "make all" se encarga de generar los dos ejecutables pedidos para este trabajo práctico:
+El comando "make all" se encarga de generar los dos ejecutables pedidos:
 
       arbolesADTBUE y arbolesADTVAN 
 
@@ -38,12 +38,13 @@ Supongamos que quisieramos procesar los datos de otra ciudad, por ejemplo, la ci
             $(COMPILER) $(CFLAGS) -o $(OUTPUT_FILE_PAR) $(FILES) -D PAR
 
 Además, se deben definir en el CSV.h las columnas donde se encuentra la información que desea procesarse.
+
 # Ejecución
 Si se desea procesar los archivos CSV de Buenos Aires y se llaman arboles.csv y barrios.csv y están en el mismo directorio que el ejecutable arbolesADTBUE, el programa se puede invocar como: 
 
       $> ./arbolesADTBUE barrios.csv arboles.csv
 
-Si se define NEIGH_FILE 1  TREE_FILE 2 en el archivo CSV.h. 
+Si se define NEIGH_FILE 1  TREE_FILE 2 en el archivo CSV.h.
  
 Si se mantienen las mismas constantes y ambos archivos CSV se llaman arb.csv y bar.csv y además están en el directorio superior al ejecutable arbolesADTBUE, se invocará como 
  
@@ -52,13 +53,13 @@ Si se mantienen las mismas constantes y ambos archivos CSV se llaman arb.csv y b
 Analógamente para los archivos CSV de la ciudad de Vancouver.
 
       Nota: 
-      Por cada ejecución del programa ambos archivos .csv se sobreescribirán si existian previamente.
+      Por cada ejecución del programa ambos archivos .csv correspondientes a las queries se sobreescribirán si existían previamente.
       Si se deseara pasar primero el archivo de los arboles se debe definir TREE_FILE 1 y luego NEIGH_FILE 2.
 
 # Resultado final
-Se crearán dos archivos en el directorio donde haya sido ejecutado el programa que corresponden a los query's de la primer fecha de entrega. A saber:
+Se crearán dos archivos en el directorio donde haya sido ejecutado el programa que corresponden a los queries de la primer fecha de entrega. A saber:
 
-      query1.csvy y query2.csv
+      query1.csv y query2.csv
 
 ## Query 1: Total de árboles por habitante. 
 
@@ -79,7 +80,7 @@ El orden de impresión es alfabético por nombre de barrio.
 El programa no abortará. El programa informará mediante la salida de errores los posibles problemas que pudieran surgir. Los códigos de error y sus referencias son: 
 >1) Error cantidad de argumentos.
 >2) Error en el procesamiento de un archivo.
->3) No hay suficiente memoria.
+>3) No hay suficiente memoria al utilizar el heap.
 
 
 
