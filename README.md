@@ -9,18 +9,20 @@ En el siguiente archivo, se detallará cómo generar los ejecutables y de cómo 
       make all 
       make clean 
       
-El comando "make all" se encarga de generar los dos ejecutables pedidos para este trabajo practico:
+El comando "make all" se encarga de generar los dos ejecutables pedidos para este trabajo práctico:
 
       arbolesADTBUE y arbolesADTVAN 
 
-El comando"make clean" eliminará todos los archivos generados por el makefile.
+El comando "make clean" eliminará todos los archivos generados por el makefile.
 
 Para el trabajo práctico analizaremos la ciudad de Vancouver y de Buenos Aires. Si se quisiera generar un ejecutable de una ciudad en particular, ejecutar alguno de los siguientes comandos:
 
       make arbolesADTBUE 
       make arbolesADTVEN 
 
-# COMPILACION
+A continuación se definen los distintos campos
+
+# Compilación
 Se debe reemplazar en CSV.h las columnas de interes para procesar los datos de Vancouver y de Buenos Aires de manera correcta.
 
       NEIGH_FILE : archivo de los barrios (leer sección de Ejecución).
@@ -30,6 +32,14 @@ Se debe reemplazar en CSV.h las columnas de interes para procesar los datos de V
       SPNAME     : columna del nombre cientifico de los árboles del archivo CSV de los árboles
       NEIGH_TREE : columna del barrio donde se ubican los distintos árboles del archivo CSV de los árboles.
 
+Supongamos que quisieramos procesar los datos de otra ciudad, por ejemplo, la ciudad de París. Entonces en el makefile se deben agregar las siguientes lineas:
+      
+      OUTPUT_FILE_PAR=arbolesADTPAR
+
+      arbolesADTPAR:
+            $(COMPILER) $(CFLAGS) -o $(OUTPUT_FILE_PAR) $(FILES) -D PAR
+
+Además, se deben definir en el CSV.h las columnas donde se encuentra la información que desea procesarse.
 # Ejecución
 Si se desea procesar los archivos CSV de Buenos Aires y se llaman arboles.csv y barrios.csv y están en el mismo directorio que el ejecutable arbolesADTBUE, el programa se puede invocar como: 
 
@@ -43,10 +53,12 @@ Si se mantienen las mismas constantes y ambos archivos CSV se llaman arb.csv y b
       
 Analógamente para los archivos CSV de la ciudad de Vancouver.
 
-      Nota: Si se deseara pasar primero el archivo de los arboles se debe definir TREE_FILE 1 y luego NEIGH_FILE 2.
+      Nota: 
+      Por cada ejecución del programa ambos archivos .csv se sobreescribirán si existian previamente.
+      Si se deseara pasar primero el archivo de los arboles se debe definir TREE_FILE 1 y luego NEIGH_FILE 2.
 
 # Resultado final
-Se crearan dos archivos en el directorio donde haya sido ejecutado el programa que corresponden a los query's de la primer fecha de entrega. A saber:
+Se crearán dos archivos en el directorio donde haya sido ejecutado el programa que corresponden a los query's de la primer fecha de entrega. A saber:
 
       query1.csvy y query2.csv
 
@@ -62,7 +74,6 @@ Se listan unicamente los barrios presentes en el archivo CSV de barrios.
 El orden de impresión es alfabético por nombre de barrio.
 
       Nota: 
-      Por cada ejecución del programa ambos archivos .csv se sobreescribirán si existian previamente.
       El programa no contabiliza árboles de un barrio que no esta en el archivo de barrios.
       El programa no acepta barrios repetidos en el archivo de barrios. En caso de haberlos, se los ignora. 
 
