@@ -20,8 +20,8 @@ static char **tokenLine( char * line , char* delim){
 			  if(new==NULL)
 				    return NULL;
 		  }
-		    new[i++]=token;
-		    token=strtok(NULL, delim );
+		  new[i++]=token;
+		  token=strtok(NULL, delim );
     }
 	  new=realloc( new , i * sizeof(char*));		
 	  return new;
@@ -38,7 +38,7 @@ int read( FILE* file, cityADT c, int dataType){
       if (aux==NULL){
         return ERROR;
       }
-			if (addNeigh( c , aux[NEIGH_NAME-1], atoi(aux[NEIGH_POP-1]) )==ERROR){
+			if (addNeigh( c , aux[NEIGH_NAME-1], atoi(aux[NEIGH_POP-1]) )==ERROR){//ya chequeado con las pruebas del ADT
 				free(aux);
 				return ERROR;
 			}
@@ -51,7 +51,7 @@ int read( FILE* file, cityADT c, int dataType){
       if (aux==NULL){
         return ERROR;
       }
-			if (addTree( c , aux[NEIGH_TREE-1] , aux[SPNAME-1])==ERROR){
+			if (addTree( c , aux[NEIGH_TREE-1] , aux[SPNAME-1])==ERROR){ //ya chequeado con las pruebas del ADT
 				free(aux);
 				return ERROR;
 			}
@@ -98,27 +98,26 @@ int read( FILE* file, cityADT c, int dataType){
   sortingRec(q,neigh,0,dim-1);
 }*/
 
-
 //mejorar	
 static void sortq1(char ** neigh, double * q, size_t dim){
-    char * swap;
-    int i=0, j=0; 
-    double aux,diff;
-    int flag = 0; 
-    for(i = dim-1; i>0 && !flag; i--){
-     flag=1;
-     for(j=0;j<i;j++) { 
-           if( (diff=q[j]-q[j+1])<0 && fabs(diff)>EPSILON){
-                aux = q[j];
-                q[j]=q[j+1];
-                q[j+1] = aux;  
-                swap=neigh[j];
-                neigh[j]=neigh[j+1];
-                neigh[j+1]=swap;        
-                flag = 0;
-            }
-        }
+  char * swap;
+  int i=0, j=0; 
+  double aux,diff;
+  int flag = 0; 
+  for(i = dim-1; i>0 && !flag; i--){
+  flag=1;
+    for(j=0; j<i ; j++) { 
+      if( (diff=q[j]-q[j+1])<0 && fabs(diff)>EPSILON){
+        aux = q[j];
+        q[j]=q[j+1];
+        q[j+1] = aux;  
+        swap=neigh[j];
+        neigh[j]=neigh[j+1];
+        neigh[j+1]=swap;        
+        flag = 0;
+      }
     }
+  }
 }	
 void genQ1 ( FILE* csv, char** neighs , double * avg , size_t dim){
 		//sortq1( avg,neighs,0,dim-1);

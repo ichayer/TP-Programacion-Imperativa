@@ -33,6 +33,7 @@ FILE* open( const char *file , char * mode);
 ** Retorna 1 si lo agrego correctamente, -1 en caso de error. 
 */
 int read( FILE* file, cityADT c, int dataType);
+
 /* 
 ** Llena el archivo de query1.csv con los datos pedidos 
 */
