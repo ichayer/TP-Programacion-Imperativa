@@ -11,7 +11,7 @@
 FILE* open( const char *file, char * mode) {
 	  return fopen( file , mode ) ;
 }
-//Funcion para limpiar la linea de ';'. Recibe la linea completa y la devuelve sin ';'
+//Funcion para parsear la linea de ';'. (Recibe la linea completa y la devuelve sin ';', con cada char[i] el char* entre separadores)
 static char **tokenLine( char * line , char* delim){
 	  char * token;	char ** new=NULL; size_t i=0;           //Inicializo el vector auxiliar y un contador que va a reprensentar la dimension
 	  token= strtok( line , delim );                        //Leo la linea hasta el primer ';' (primer string)
@@ -38,7 +38,7 @@ int read( FILE* file, cityADT c, int dataType){
       if (aux==NULL){                                  //Si fallo corto con error.
         return ERROR;
       }
-      //ya chequeado con las pruebas del ADT
+
 			if (addNeigh( c , aux[NEIGH_NAME-1], atoi(aux[NEIGH_POP-1]) )==ERROR){  //Si no hubo error agrego el barrio, chequeando que no falle
 				free(aux);                                                            //Si fallo, libero los recursos utlizados y corto con error.
 				return ERROR;
